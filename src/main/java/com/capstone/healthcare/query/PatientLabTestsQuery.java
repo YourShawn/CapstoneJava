@@ -1,27 +1,29 @@
 package com.capstone.healthcare.query;
 
 
-import com.capstone.healthcare.common.modules.PageInfo;
 import lombok.Data;
 import java.util.Date;
+import com.capstone.healthcare.common.modules.PageInfo;
+import lombok.EqualsAndHashCode;
 
 /**
  * 实体的查询对象
  * 
  * @author xw
  * @email xw
- * @date 2023-10-16 09:23:19
+ * @date 2023-10-16 14:42:09
  */
 @Data
-public class PatientLabTestsQuery extends PageInfo {
+@EqualsAndHashCode(callSuper = true)
+public class PatientLabTestsQuery extends PageInfo{
 	private static final long serialVersionUID = 1L;
 
 	/***/
-	private Integer patientTestid;
+	private Integer patientTestId;
 	/***/
-	private Integer patientid;
+	private Integer patientId;
 	/***/
-	private Integer doctorid;
+	private Integer doctorId;
 	/***/
 	private String testName;
 	/***/
@@ -35,5 +37,5 @@ public class PatientLabTestsQuery extends PageInfo {
 	/***/
 	private String notes;
 	/***/
-	private Integer prescriptionid;
+	private Integer prescriptionId;
 }

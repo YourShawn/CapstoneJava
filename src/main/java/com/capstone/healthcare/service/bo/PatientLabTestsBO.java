@@ -8,18 +8,18 @@ import java.util.Date;
  * 
  * @author xw
  * @email xw
- * @date 2023-10-16 09:23:19
+ * @date 2023-10-16 14:42:09
  */
 @Data
 public class PatientLabTestsBO {
 	private static final long serialVersionUID = 1L;
 
 	/***/
-	private Integer patientTestid;
+	private Integer patientTestId;
 	/***/
-	private Integer patientid;
+	private Integer patientId;
 	/***/
-	private Integer doctorid;
+	private Integer doctorId;
 	/***/
 	private String testName;
 	/***/
@@ -33,5 +33,5 @@ public class PatientLabTestsBO {
 	/***/
 	private String notes;
 	/***/
-	private Integer prescriptionid;
+	private Integer prescriptionId;
 }

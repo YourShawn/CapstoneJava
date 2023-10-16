@@ -9,20 +9,20 @@ import java.util.Date;
  * 
  * @author xw
  * @email xw
- * @date 2023-10-16 09:23:19
+ * @date 2023-10-16 14:42:09
  */
 @Data
 public class BillingAndPaymentsBO {
 	private static final long serialVersionUID = 1L;
 
 	/***/
-	private Integer billingid;
+	private Integer billingId;
 	/***/
-	private Integer patientid;
+	private Integer patientId;
 	/***/
-	private Integer doctorid;
+	private Integer doctorId;
 	/***/
-	private Integer appointmentid;
+	private Integer appointmentId;
 	/***/
 	private Date billingDate;
 	/***/

@@ -1,6 +1,9 @@
 package com.capstone.healthcare.dal.dataobject;
 
 import lombok.Data;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,20 +12,22 @@ import java.util.Date;
  * 
  * @author xw
  * @email xw
- * @date 2023-10-16 09:23:19
+ * @date 2023-10-16 14:42:09
  */
 @Data
+@Table(name = "billing_and_payments")
 public class BillingAndPaymentsDO {
 	private static final long serialVersionUID = 1L;
 
 	/***/
-	private Integer billingid;
+	@Id
+	private Integer billingId;
 	/***/
-	private Integer patientid;
+	private Integer patientId;
 	/***/
-	private Integer doctorid;
+	private Integer doctorId;
 	/***/
-	private Integer appointmentid;
+	private Integer appointmentId;
 	/***/
 	private Date billingDate;
 	/***/
