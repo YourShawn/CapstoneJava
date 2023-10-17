@@ -8,7 +8,7 @@ import com.capstone.healthcare.common.modules.PageInfo;
 import lombok.EqualsAndHashCode;
 
 /**
- * 实体的查询对象
+ * Object for querying
  * 
  * @author xw
  * @email xw
