@@ -2,12 +2,12 @@ package com.capstone.healthcare.web.controller;
 
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.handle.DoctorsHandler;
 import com.capstone.healthcare.query.DoctorsQuery;
-import com.capstone.healthcare.service.DoctorsService;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
 import com.iaminca.entity.dto.DoctorsDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,8 +25,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/doctors")
 public class DoctorsController {
-	@Autowired
-	private DoctorsService doctorsService;
+	@Resource
+	private DoctorsHandler doctorsHandler;
 
 
 	
@@ -36,7 +36,7 @@ public class DoctorsController {
 	@RequestMapping("/findPage")
 	@ResponseBody
 	public ResultModel findPageInfo(@RequestBody DoctorsQuery query){
-		PageListResult<DoctorsBO> pagerResult = doctorsService.findPage(query);
+		PageListResult<DoctorsBO> pagerResult = doctorsHandler.findPage(query);
 
 		List<DoctorsDTO> DoctorsDTOS = DoctorsConvert.toDTOList(pagerResult.getList());
 		PageListResult<DoctorsDTO> page = new PageListResult<>(DoctorsDTOS,pagerResult.getPageNum(),pagerResult.getPageSize(),pagerResult.getTotal());
@@ -50,7 +50,8 @@ public class DoctorsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody DoctorsDTO doctorsDTO){
 		DoctorsBO doctorsBO = DoctorsConvert.toBO(doctorsDTO);
-        return new ResultModel(doctorsService.add(doctorsBO));
+		doctorsHandler.add(doctorsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class DoctorsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody DoctorsDTO doctorsDTO){
 		DoctorsBO doctorsBO = DoctorsConvert.toBO(doctorsDTO);
-        return new ResultModel(doctorsService.update(doctorsBO));
+		doctorsHandler.update(doctorsBO);
+        return new ResultModel();
 	}
 
 }

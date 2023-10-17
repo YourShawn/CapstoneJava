@@ -1,5 +1,7 @@
 package com.capstone.healthcare.handle;
 
+import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.query.DoctorsQuery;
 import com.capstone.healthcare.service.DoctorsService;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import jakarta.annotation.Resource;
@@ -22,6 +24,15 @@ public class DoctorsHandler{
 
     public void add(DoctorsBO doctorsBO){
         doctorsService.add(doctorsBO);
+    }
+
+    public void update(DoctorsBO doctorsBO){
+        doctorsService.update(doctorsBO);
+    }
+
+    public PageListResult<DoctorsBO> findPage(DoctorsQuery query){
+        PageListResult<DoctorsBO> pagerResult = doctorsService.findPage(query);
+        return pagerResult;
     }
 
 }
