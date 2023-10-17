@@ -6,7 +6,8 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ * Doctors functionalities
+ *
  *
  * @author xw
  * @email xw
