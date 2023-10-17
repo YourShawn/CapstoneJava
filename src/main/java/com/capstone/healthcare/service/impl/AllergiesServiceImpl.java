@@ -10,7 +10,7 @@ import com.capstone.healthcare.service.AllergiesService;
 import com.capstone.healthcare.service.bo.AllergiesBO;
 import com.capstone.healthcare.service.convert.AllergiesConvert;
 import com.github.pagehelper.Page;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import tk.mybatis.mapper.entity.Example;
@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 public class AllergiesServiceImpl implements AllergiesService {
 
-	@Autowired
+	@Resource
 	private AllergiesDAO allergiesDAO;
 
 

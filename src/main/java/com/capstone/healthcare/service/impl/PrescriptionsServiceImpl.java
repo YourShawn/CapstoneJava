@@ -9,6 +9,7 @@ import com.capstone.healthcare.service.PrescriptionsService;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
 import com.capstone.healthcare.service.convert.PrescriptionsConvert;
 import com.github.pagehelper.Page;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -26,7 +27,7 @@ import java.util.List;
 @Service
 public class PrescriptionsServiceImpl implements PrescriptionsService {
 
-	@Autowired
+	@Resource
 	private PrescriptionsDAO prescriptionsDAO;
 
 

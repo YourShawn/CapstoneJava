@@ -34,7 +34,7 @@ public class PrescriptionsConvert {
         }
 
 		PrescriptionsDO prescriptionsDO = new PrescriptionsDO();
-        BeanUtils.copyProperties(prescriptionsDO, prescriptionsBO);
+        BeanUtils.copyProperties(prescriptionsBO,prescriptionsDO);
 		return prescriptionsDO;
 	}
 
