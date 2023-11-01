@@ -19,7 +19,7 @@ import java.util.List;
  * @email xw
  * @date 2023-10-16 14:42:09
  */
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/patients")
 public class PatientsController {
