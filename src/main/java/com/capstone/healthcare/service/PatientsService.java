@@ -37,4 +37,5 @@ public interface PatientsService {
     List<PatientsBO> findList(PatientsQuery query);
 
     PageListResult<PatientsBO> findPage(PatientsQuery query);
+
 }

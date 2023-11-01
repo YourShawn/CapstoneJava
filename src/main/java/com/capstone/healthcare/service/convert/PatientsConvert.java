@@ -24,7 +24,7 @@ public class PatientsConvert {
         }
 
 		PatientsBO patientsBO = new PatientsBO();
-        BeanUtils.copyProperties(patientsBO, patientsDO);
+        BeanUtils.copyProperties(patientsDO, patientsBO);
 		return patientsBO;
 	}
 
@@ -34,7 +34,7 @@ public class PatientsConvert {
         }
 
 		PatientsDO patientsDO = new PatientsDO();
-        BeanUtils.copyProperties(patientsDO, patientsBO);
+        BeanUtils.copyProperties(patientsBO, patientsDO);
 		return patientsDO;
 	}
 

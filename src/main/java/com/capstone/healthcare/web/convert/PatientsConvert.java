@@ -1,8 +1,9 @@
 package com.capstone.healthcare.web.convert;
 
 import com.capstone.healthcare.service.bo.PatientsBO;
+import com.capstone.healthcare.web.dto.PatientsDTO;
 import com.google.common.collect.Lists;
-import com.iaminca.entity.dto.PatientsDTO;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -24,7 +25,7 @@ public class PatientsConvert {
         }
 
 		PatientsBO patientsBO = new PatientsBO();
-        BeanUtils.copyProperties(patientsBO, patientsDTO);
+        BeanUtils.copyProperties(patientsDTO,patientsBO);
 		return patientsBO;
 	}
 
@@ -34,7 +35,7 @@ public class PatientsConvert {
         }
 
 		PatientsDTO patientsDTO = new PatientsDTO();
-        BeanUtils.copyProperties(patientsDTO, patientsBO);
+        BeanUtils.copyProperties(patientsBO,patientsDTO);
 		return patientsDTO;
 	}
 

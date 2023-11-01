@@ -1,4 +1,4 @@
-package com.iaminca.entity.dto;
+package com.capstone.healthcare.web.dto;
 
 import lombok.Data;
 import java.util.Date;

@@ -1,6 +1,7 @@
 package com.capstone.healthcare.dal.dao;
 
 import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 /**
  * 
@@ -9,5 +10,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @email xw
  * @date 2023-10-16 09:23:19
  */
+@Repository
 public interface AppointmentsDAO extends Mapper<AppointmentsDO> {
 }

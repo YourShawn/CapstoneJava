@@ -24,7 +24,7 @@ public class DoctorsConvert {
         }
 
 		DoctorsBO doctorsBO = new DoctorsBO();
-        BeanUtils.copyProperties(doctorsBO, doctorsDO);
+        BeanUtils.copyProperties(doctorsDO, doctorsBO);
 		return doctorsBO;
 	}
 
@@ -34,7 +34,7 @@ public class DoctorsConvert {
         }
 
 		DoctorsDO doctorsDO = new DoctorsDO();
-        BeanUtils.copyProperties(doctorsDO, doctorsBO);
+        BeanUtils.copyProperties(doctorsBO, doctorsDO);
 		return doctorsDO;
 	}
 

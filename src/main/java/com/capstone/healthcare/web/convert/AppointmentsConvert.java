@@ -2,7 +2,7 @@ package com.capstone.healthcare.web.convert;
 
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.google.common.collect.Lists;
-import com.iaminca.entity.dto.AppointmentsDTO;
+import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -24,7 +24,7 @@ public class AppointmentsConvert {
         }
 
 		AppointmentsBO appointmentsBO = new AppointmentsBO();
-        BeanUtils.copyProperties(appointmentsBO, appointmentsDTO);
+        BeanUtils.copyProperties(appointmentsDTO, appointmentsBO);
 		return appointmentsBO;
 	}
 
@@ -34,7 +34,7 @@ public class AppointmentsConvert {
         }
 
 		AppointmentsDTO appointmentsDTO = new AppointmentsDTO();
-        BeanUtils.copyProperties(appointmentsDTO, appointmentsBO);
+        BeanUtils.copyProperties(appointmentsBO, appointmentsDTO);
 		return appointmentsDTO;
 	}
 

@@ -31,5 +31,7 @@ public class PatientsBO {
 	/***/
 	private String healthCardId;
 	/***/
-	private Integer haveAllergies;
+	private String haveAllergies;
+	/***/
+	private Integer assignedDoctor;
 }

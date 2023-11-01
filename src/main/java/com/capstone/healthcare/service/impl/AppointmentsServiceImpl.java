@@ -1,6 +1,6 @@
 package com.capstone.healthcare.service.impl;
 
-import com.capstone.healthcare.common.Constants;
+
 import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dao.AppointmentsDAO;
@@ -12,9 +12,6 @@ import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import java.util.Date;
 import java.util.List;
 import tk.mybatis.mapper.entity.Example;
 import org.springframework.util.ObjectUtils;
@@ -79,6 +76,10 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         Example.Criteria criteria = example.createCriteria();
         if (!ObjectUtils.isEmpty(appointmentsQuery.getAppointmentId())) {
             criteria.andEqualTo("appointmentId", appointmentsQuery.getAppointmentId());
+        }
+
+        if(!ObjectUtils.isEmpty(appointmentsQuery.getDoctorId())) {
+            criteria.andEqualTo("doctorId",appointmentsQuery.getDoctorId());
         }
         return example;
     }

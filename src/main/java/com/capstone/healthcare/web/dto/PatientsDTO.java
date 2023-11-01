@@ -1,4 +1,4 @@
-package com.iaminca.entity.dto;
+package com.capstone.healthcare.web.dto;
 
 import lombok.Data;
 import java.util.Date;
@@ -31,5 +31,7 @@ public class PatientsDTO {
 	/***/
 	private String healthCardId;
 	/***/
-	private Integer haveAllergies;
+	private String haveAllergies;
+	/***/
+	private Integer assignedDoctor;
 }
