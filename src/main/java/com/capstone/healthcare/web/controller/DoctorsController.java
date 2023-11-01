@@ -6,7 +6,7 @@ import com.capstone.healthcare.handle.DoctorsHandler;
 import com.capstone.healthcare.query.DoctorsQuery;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
-import com.iaminca.entity.dto.DoctorsDTO;
+import com.capstone.healthcare.web.dto.DoctorsDTO;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
