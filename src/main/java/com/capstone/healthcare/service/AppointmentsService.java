@@ -35,6 +35,5 @@ public interface AppointmentsService {
      * @return
      */
     List<AppointmentsBO> findList(AppointmentsQuery query);
-
     PageListResult<AppointmentsBO> findPage(AppointmentsQuery query);
 }

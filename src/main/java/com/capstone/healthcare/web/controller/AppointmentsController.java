@@ -6,12 +6,9 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
-import com.iaminca.entity.dto.AppointmentsDTO;
+import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,7 @@ import java.util.List;
  * @email xw
  * @date 2023-10-16 14:42:09
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentsController {
@@ -63,4 +61,14 @@ public class AppointmentsController {
         return new ResultModel(appointmentsService.update(appointmentsBO));
 	}
 
+	/**
+	 *  get appointment list
+	 */
+	@RequestMapping("/getAppointmentsList")
+	@ResponseBody
+	public ResultModel getAppointmentList(@RequestBody AppointmentsQuery appointmentsQuery) {
+		List<AppointmentsDTO> appointmentsDTOList =
+				AppointmentsConvert.toDTOList(appointmentsService.findList(appointmentsQuery));
+		return new ResultModel(appointmentsDTOList);
+	}
 }

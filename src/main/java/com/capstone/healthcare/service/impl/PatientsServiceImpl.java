@@ -61,6 +61,7 @@ public class PatientsServiceImpl implements PatientsService {
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;
     }
+
     /**
         *
         * @param patientsQuery

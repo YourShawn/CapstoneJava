@@ -6,12 +6,9 @@ import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.PatientsService;
 import com.capstone.healthcare.service.bo.PatientsBO;
 import com.capstone.healthcare.web.convert.PatientsConvert;
-import com.iaminca.entity.dto.PatientsDTO;
+import com.capstone.healthcare.web.dto.PatientsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,7 @@ import java.util.List;
  * @email xw
  * @date 2023-10-16 14:42:09
  */
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/patients")
 public class PatientsController {
@@ -63,4 +61,14 @@ public class PatientsController {
         return new ResultModel(patientsService.update(patientsBO));
 	}
 
+	/**
+	 * get patient list
+	 */
+	@RequestMapping("/getAllocatedPatientsList")
+	@ResponseBody
+	public ResultModel getAllocatedPatientsList(@RequestBody PatientsQuery query){
+		List<PatientsBO> allPatients = patientsService.findList(query);
+		List<PatientsDTO> patientsList = PatientsConvert.toDTOList(allPatients);
+		return  new ResultModel(patientsList);
+	}
 }

@@ -24,7 +24,7 @@ public class AppointmentsConvert {
         }
 
 		AppointmentsBO appointmentsBO = new AppointmentsBO();
-        BeanUtils.copyProperties(appointmentsBO, appointmentsDO);
+        BeanUtils.copyProperties(appointmentsDO, appointmentsBO);
 		return appointmentsBO;
 	}
 
@@ -34,7 +34,7 @@ public class AppointmentsConvert {
         }
 
 		AppointmentsDO appointmentsDO = new AppointmentsDO();
-        BeanUtils.copyProperties(appointmentsDO, appointmentsBO);
+        BeanUtils.copyProperties(appointmentsBO, appointmentsDO);
 		return appointmentsDO;
 	}
 

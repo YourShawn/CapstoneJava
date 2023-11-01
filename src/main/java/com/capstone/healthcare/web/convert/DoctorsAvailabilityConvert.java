@@ -1,8 +1,9 @@
 package com.capstone.healthcare.web.convert;
 
 import com.capstone.healthcare.service.bo.DoctorsAvailabilityBO;
+import com.capstone.healthcare.web.dto.DoctorsAvailabilityDTO;
 import com.google.common.collect.Lists;
-import com.iaminca.entity.dto.DoctorsAvailabilityDTO;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 

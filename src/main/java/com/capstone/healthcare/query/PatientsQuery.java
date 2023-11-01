@@ -35,5 +35,7 @@ public class PatientsQuery extends PageInfo{
 	/***/
 	private String healthCardId;
 	/***/
-	private Integer haveAllergies;
+	private String haveAllergies;
+	/***/
+	private String assignedDoctor;
 }

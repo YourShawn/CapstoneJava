@@ -6,7 +6,8 @@ import com.capstone.healthcare.query.DoctorsAvailabilityQuery;
 import com.capstone.healthcare.service.DoctorsAvailabilityService;
 import com.capstone.healthcare.service.bo.DoctorsAvailabilityBO;
 import com.capstone.healthcare.web.convert.DoctorsAvailabilityConvert;
-import com.iaminca.entity.dto.DoctorsAvailabilityDTO;
+
+import com.capstone.healthcare.web.dto.DoctorsAvailabilityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
