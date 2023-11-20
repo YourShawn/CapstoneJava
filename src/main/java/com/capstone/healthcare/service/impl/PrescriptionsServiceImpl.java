@@ -41,8 +41,8 @@ public class PrescriptionsServiceImpl implements PrescriptionsService {
 
     @Override
     public List<PrescriptionsBO> findList(PrescriptionsQuery query) {
-        List<PrescriptionsDO> listByQuery = prescriptionsJPA.findAll(this.convertExampleJPA(query));
-        return PrescriptionsConvert.toBOList(listByQuery);
+        Iterable<PrescriptionsDO> all = prescriptionsJPA.findAll(this.convertExampleJPA(query));
+        return PrescriptionsConvert.toBOList(null);
     }
 
     @Override

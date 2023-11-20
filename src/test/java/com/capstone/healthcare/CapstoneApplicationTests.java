@@ -2,6 +2,8 @@ package com.capstone.healthcare;
 
 import com.capstone.healthcare.common.Constants;
 import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.dal.dataobject.PrescriptionsDO;
+import com.capstone.healthcare.dal.jpa.PrescriptionsJPA2;
 import com.capstone.healthcare.handle.AllergiesHandler;
 import com.capstone.healthcare.query.AllergiesQuery;
 import com.capstone.healthcare.service.AllergiesService;
@@ -43,5 +45,16 @@ class CapstoneApplicationTests {
 		allergiesHandler.update(bo);
 		System.out.println("Done!");
 	}
-
+	@Resource
+	private PrescriptionsJPA2 prescriptionsJPA2;
+	@Test
+	void group() {
+		AllergiesBO bo = new AllergiesBO();
+		bo.setAllergyId(1);
+		bo.setNotes("909091");
+		List<PrescriptionsDO> allByOrderByPrescriptionId = prescriptionsJPA2.findAllByOrderByPrescriptionId();
+		System.out.println("Done!{}"+Constants.GSON.toJson(allByOrderByPrescriptionId));
+		List<Object[]> allByOrderByPrescriptionId2= prescriptionsJPA2.groupByYear();
+		System.out.println("Done!{}"+Constants.GSON.toJson(allByOrderByPrescriptionId2));
+	}
 }
