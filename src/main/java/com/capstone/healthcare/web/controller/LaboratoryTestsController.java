@@ -50,7 +50,8 @@ public class LaboratoryTestsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody LaboratoryTestsDTO laboratoryTestsDTO){
 		LaboratoryTestsBO laboratoryTestsBO = LaboratoryTestsConvert.toBO(laboratoryTestsDTO);
-        return new ResultModel(laboratoryTestsService.add(laboratoryTestsBO));
+		laboratoryTestsService.add(laboratoryTestsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class LaboratoryTestsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody LaboratoryTestsDTO laboratoryTestsDTO){
 		LaboratoryTestsBO laboratoryTestsBO = LaboratoryTestsConvert.toBO(laboratoryTestsDTO);
-        return new ResultModel(laboratoryTestsService.update(laboratoryTestsBO));
+		laboratoryTestsService.update(laboratoryTestsBO);
+        return new ResultModel();
 	}
 
 }

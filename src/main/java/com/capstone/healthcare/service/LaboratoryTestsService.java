@@ -19,14 +19,14 @@ public interface LaboratoryTestsService {
 	 * @param
 	 * @return
 	 */
-    int add(LaboratoryTestsBO laboratoryTestsBO);
+    void add(LaboratoryTestsBO laboratoryTestsBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(LaboratoryTestsBO laboratoryTestsBO);
+    void update(LaboratoryTestsBO laboratoryTestsBO);
 
 
     /**

@@ -1,6 +1,7 @@
 package com.iaminca.entity.dto;
 
 import lombok.Data;
+
 import java.util.Date;
 
 /**

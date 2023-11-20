@@ -29,7 +29,8 @@ public class RegistrationController {
     @ResponseBody
     public ResultModel add(@RequestBody UsersDTO usersDTO){
         UsersBO usersBO = RegisterConvert.toBO(usersDTO);
-        return new ResultModel(registrationService.add(usersBO));
+        registrationService.add(usersBO);
+        return new ResultModel();
     }
 
     /**
@@ -39,6 +40,7 @@ public class RegistrationController {
     @ResponseBody
     public ResultModel update(@RequestBody UsersDTO usersDTO){
         UsersBO usersBO = RegisterConvert.toBO(usersDTO);
-        return new ResultModel(registrationService.update(usersBO));
+        registrationService.update(usersBO);
+        return new ResultModel();
     }
 }

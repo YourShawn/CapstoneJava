@@ -50,7 +50,8 @@ public class BillingAndPaymentsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody BillingAndPaymentsDTO billingAndPaymentsDTO){
 		BillingAndPaymentsBO billingAndPaymentsBO = BillingAndPaymentsConvert.toBO(billingAndPaymentsDTO);
-        return new ResultModel(billingAndPaymentsService.add(billingAndPaymentsBO));
+		billingAndPaymentsService.add(billingAndPaymentsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class BillingAndPaymentsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody BillingAndPaymentsDTO billingAndPaymentsDTO){
 		BillingAndPaymentsBO billingAndPaymentsBO = BillingAndPaymentsConvert.toBO(billingAndPaymentsDTO);
-        return new ResultModel(billingAndPaymentsService.update(billingAndPaymentsBO));
+		billingAndPaymentsService.update(billingAndPaymentsBO);
+        return new ResultModel();
 	}
 
 }

@@ -2,16 +2,18 @@ package com.capstone.healthcare.dal.dataobject;
 
 import lombok.Data;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Data
-@Table (name = "users")
+@Entity(name = "users")
 public class UsersDO {
 
     private static final long serialVersionUID = 1L;
     /***/
     @Id
+    @GeneratedValue
     private Integer userId;
     /***/
     private String fullName;

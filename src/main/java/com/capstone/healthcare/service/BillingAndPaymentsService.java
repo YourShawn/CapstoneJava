@@ -19,14 +19,14 @@ public interface BillingAndPaymentsService {
 	 * @param
 	 * @return
 	 */
-    int add(BillingAndPaymentsBO billingAndPaymentsBO);
+    void add(BillingAndPaymentsBO billingAndPaymentsBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(BillingAndPaymentsBO billingAndPaymentsBO);
+    void update(BillingAndPaymentsBO billingAndPaymentsBO);
 
 
     /**

@@ -1,8 +1,8 @@
 package com.capstone.healthcare.web.convert;
 
 import com.capstone.healthcare.service.bo.AppointmentsBO;
-import com.google.common.collect.Lists;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
+import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 

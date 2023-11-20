@@ -48,7 +48,8 @@ public class AppointmentsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody AppointmentsDTO appointmentsDTO){
 		AppointmentsBO appointmentsBO = AppointmentsConvert.toBO(appointmentsDTO);
-        return new ResultModel(appointmentsService.add(appointmentsBO));
+		appointmentsService.add(appointmentsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -58,7 +59,8 @@ public class AppointmentsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody AppointmentsDTO appointmentsDTO){
 		AppointmentsBO appointmentsBO = AppointmentsConvert.toBO(appointmentsDTO);
-        return new ResultModel(appointmentsService.update(appointmentsBO));
+		appointmentsService.update(appointmentsBO);
+        return new ResultModel();
 	}
 
 	/**

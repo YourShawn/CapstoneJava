@@ -3,7 +3,6 @@ package com.capstone.healthcare.web.convert;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.dto.DoctorsDTO;
 import com.google.common.collect.Lists;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 

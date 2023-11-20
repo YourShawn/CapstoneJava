@@ -50,7 +50,8 @@ public class MedicalRecordsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody MedicalRecordsDTO medicalRecordsDTO){
 		MedicalRecordsBO medicalRecordsBO = MedicalRecordsConvert.toBO(medicalRecordsDTO);
-        return new ResultModel(medicalRecordsService.add(medicalRecordsBO));
+		medicalRecordsService.add(medicalRecordsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class MedicalRecordsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody MedicalRecordsDTO medicalRecordsDTO){
 		MedicalRecordsBO medicalRecordsBO = MedicalRecordsConvert.toBO(medicalRecordsDTO);
-        return new ResultModel(medicalRecordsService.update(medicalRecordsBO));
+		medicalRecordsService.update(medicalRecordsBO);
+        return new ResultModel();
 	}
 
 }

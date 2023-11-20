@@ -50,7 +50,8 @@ public class PrescriptionsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody PrescriptionsDTO prescriptionsDTO){
 		PrescriptionsBO prescriptionsBO = PrescriptionsConvert.toBO(prescriptionsDTO);
-        return new ResultModel(prescriptionsService.add(prescriptionsBO));
+		prescriptionsService.add(prescriptionsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class PrescriptionsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody PrescriptionsDTO prescriptionsDTO){
 		PrescriptionsBO prescriptionsBO = PrescriptionsConvert.toBO(prescriptionsDTO);
-        return new ResultModel(prescriptionsService.update(prescriptionsBO));
+		prescriptionsService.update(prescriptionsBO);
+        return new ResultModel();
 	}
 
 }

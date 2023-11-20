@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 
- * 
+ *
+ *
  * @author xw
  * @email xw
  * @date 2023-10-16 14:42:09
@@ -29,7 +29,7 @@ public class DoctorsController {
 	private DoctorsHandler doctorsHandler;
 
 
-	
+
 	/**
 	 * Pagination
 	 */
@@ -53,7 +53,7 @@ public class DoctorsController {
 		doctorsHandler.add(doctorsBO);
         return new ResultModel();
 	}
-	
+
 	/**
 	 * update
 	 */

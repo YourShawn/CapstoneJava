@@ -1,7 +1,6 @@
 package com.capstone.healthcare.service.bo;
 
 import lombok.Data;
-import java.util.Date;
 
 /**
  * 

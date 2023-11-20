@@ -3,21 +3,23 @@ package com.capstone.healthcare.service.impl;
 
 import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
-import com.capstone.healthcare.dal.dao.AppointmentsDAO;
 import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
+import com.capstone.healthcare.dal.jpa.AppointmentsJPA;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import tk.mybatis.mapper.entity.Example;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
+
 /**
- * 
+ *
  *
  * @author xw
  * @email xw
@@ -27,28 +29,28 @@ import org.springframework.util.ObjectUtils;
 public class AppointmentsServiceImpl implements AppointmentsService {
 
 	@Autowired
-	private AppointmentsDAO appointmentsDAO;
+	private AppointmentsJPA appointmentsJPA;
 
 
     @Override
-    public int add(AppointmentsBO appointmentsBO){
-//        appointmentsBO.setId(null);
+    public void add(AppointmentsBO appointmentsBO){
+        appointmentsBO.setAppointmentId(null);
 //        appointmentsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
 //        appointmentsBO.setCreateTime(new Date());
 //        appointmentsBO.setUpdateTime( appointmentsBO.getCreateTime());
         AppointmentsDO appointmentsDO = AppointmentsConvert.toDO(appointmentsBO);
-		return appointmentsDAO.insert(appointmentsDO);
+		appointmentsJPA.save(appointmentsDO);
     }
 
     @Override
-    public int update(AppointmentsBO appointmentsBO){
+    public void update(AppointmentsBO appointmentsBO){
 		AppointmentsDO appointmentsDO = AppointmentsConvert.toDO(appointmentsBO);
-        return appointmentsDAO.updateByPrimaryKeySelective(appointmentsDO);
+        appointmentsJPA.save(appointmentsDO);
     }
 
     @Override
     public List<AppointmentsBO> findList(AppointmentsQuery query){
-        List<AppointmentsDO> listByQuery = appointmentsDAO.selectByExample(this.convertExample(query));
+        List<AppointmentsDO> listByQuery = appointmentsJPA.findAll(this.convertExampleJPA(query));
         return AppointmentsConvert.toBOList(listByQuery);
     }
 
@@ -58,7 +60,7 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         pagerCondition.setOrderBy(" ");
         Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
         page.setReasonable(Boolean.FALSE);
-        List<AppointmentsDO> list = appointmentsDAO.selectByExample(this.convertExample(pagerCondition));
+        List<AppointmentsDO> list = appointmentsJPA.findAll(this.convertExampleJPA(pagerCondition));
         //Setting the set of result
         PageListResult<AppointmentsBO> pageListResult = new PageListResult(AppointmentsConvert.toBOList(list));
         PageHelperAdaptor.setPageResult(page, pageListResult);
@@ -71,17 +73,33 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         * @param appointmentsQuery
         * @return
         */
-    private Example convertExample(AppointmentsQuery appointmentsQuery) {
-        Example example = new Example(AppointmentsDO.class);
-        Example.Criteria criteria = example.createCriteria();
-        if (!ObjectUtils.isEmpty(appointmentsQuery.getAppointmentId())) {
-            criteria.andEqualTo("appointmentId", appointmentsQuery.getAppointmentId());
+//    private Example convertExample(AppointmentsQuery appointmentsQuery) {
+//        Example example = new Example(AppointmentsDO.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        if (!ObjectUtils.isEmpty(appointmentsQuery.getAppointmentId())) {
+//            criteria.andEqualTo("appointmentId", appointmentsQuery.getAppointmentId());
+//        }
+//
+//        if(!ObjectUtils.isEmpty(appointmentsQuery.getDoctorId())) {
+//            criteria.andEqualTo("doctorId",appointmentsQuery.getDoctorId());
+//        }
+//        return example;
+//    }
+
+
+    private org.springframework.data.domain.Example<AppointmentsDO> convertExampleJPA(AppointmentsQuery query) {
+        AppointmentsDO probe = new AppointmentsDO();
+        if(!ObjectUtils.isEmpty(query.getAppointmentId())){
+            probe.setAppointmentId(query.getAppointmentId());
         }
 
-        if(!ObjectUtils.isEmpty(appointmentsQuery.getDoctorId())) {
-            criteria.andEqualTo("doctorId",appointmentsQuery.getDoctorId());
-        }
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase();
+
+        Example<AppointmentsDO> example = Example.of(probe, matcher);
         return example;
     }
+
 
 }

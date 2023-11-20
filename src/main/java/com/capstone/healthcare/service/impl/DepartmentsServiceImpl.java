@@ -1,23 +1,22 @@
 package com.capstone.healthcare.service.impl;
 
-import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
-import com.capstone.healthcare.dal.dao.DepartmentsDAO;
 import com.capstone.healthcare.dal.dataobject.DepartmentsDO;
+import com.capstone.healthcare.dal.jpa.DepartmentsJPA;
 import com.capstone.healthcare.query.DepartmentsQuery;
 import com.capstone.healthcare.service.DepartmentsService;
 import com.capstone.healthcare.service.bo.DepartmentsBO;
 import com.capstone.healthcare.service.convert.DepartmentsConvert;
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author xw
  * @email xw
@@ -27,57 +26,73 @@ import java.util.List;
 public class DepartmentsServiceImpl implements DepartmentsService {
 
 	@Autowired
-	private DepartmentsDAO departmentsDAO;
+	private DepartmentsJPA departmentsJPA;
 
 
     @Override
-    public int add(DepartmentsBO departmentsBO){
-//        departmentsBO.setId(null);
+    public void add(DepartmentsBO departmentsBO){
+        departmentsBO.setDepartmentId(null);
 //        departmentsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
 //        departmentsBO.setCreateTime(new Date());
 //        departmentsBO.setUpdateTime( departmentsBO.getCreateTime());
         DepartmentsDO departmentsDO = DepartmentsConvert.toDO(departmentsBO);
-		return departmentsDAO.insert(departmentsDO);
+        departmentsJPA.save(departmentsDO);
     }
 
     @Override
-    public int update(DepartmentsBO departmentsBO){
+    public void update(DepartmentsBO departmentsBO){
 		DepartmentsDO departmentsDO = DepartmentsConvert.toDO(departmentsBO);
-        return departmentsDAO.updateByPrimaryKeySelective(departmentsDO);
+        departmentsJPA.save(departmentsDO);
     }
 
     @Override
     public List<DepartmentsBO> findList(DepartmentsQuery query){
-        List<DepartmentsDO> listByQuery = departmentsDAO.selectByExample(this.convertExample(query));
+        List<DepartmentsDO> listByQuery = departmentsJPA.findAll(this.convertExampleJPA(query));
         return DepartmentsConvert.toBOList(listByQuery);
     }
 
     @Override
     public PageListResult<DepartmentsBO> findPage(DepartmentsQuery pagerCondition){
-        //Setting the parameters of pagination
-        pagerCondition.setOrderBy(" ");
-        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-        page.setReasonable(Boolean.FALSE);
-        List<DepartmentsDO> list = departmentsDAO.selectByExample(this.convertExample(pagerCondition));
-        //Setting the set of result
-        PageListResult<DepartmentsBO> pageListResult = new PageListResult(DepartmentsConvert.toBOList(list));
-        PageHelperAdaptor.setPageResult(page, pageListResult);
-        pageListResult.setPageNum(pagerCondition.getPageNum());
-        pageListResult.setPageSize(pagerCondition.getPageSize());
-        return pageListResult;
+//        //Setting the parameters of pagination
+//        pagerCondition.setOrderBy(" ");
+//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
+//        page.setReasonable(Boolean.FALSE);
+//        List<DepartmentsDO> list = departmentsDAO.selectByExample(this.convertExample(pagerCondition));
+//        //Setting the set of result
+//        PageListResult<DepartmentsBO> pageListResult = new PageListResult(DepartmentsConvert.toBOList(list));
+//        PageHelperAdaptor.setPageResult(page, pageListResult);
+//        pageListResult.setPageNum(pagerCondition.getPageNum());
+//        pageListResult.setPageSize(pagerCondition.getPageSize());
+//        return pageListResult;
+        return null;
     }
     /**
         *
         * @param departmentsQuery
         * @return
         */
-    private Example convertExample(DepartmentsQuery departmentsQuery) {
-        Example example = new Example(DepartmentsDO.class);
-        Example.Criteria criteria = example.createCriteria();
-        if (!ObjectUtils.isEmpty(departmentsQuery.getDepartmentId())) {
-            criteria.andEqualTo("departmentId", departmentsQuery.getDepartmentId());
+//    private Example convertExample(DepartmentsQuery departmentsQuery) {
+//        Example example = new Example(DepartmentsDO.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        if (!ObjectUtils.isEmpty(departmentsQuery.getDepartmentId())) {
+//            criteria.andEqualTo("departmentId", departmentsQuery.getDepartmentId());
+//        }
+//        return example;
+//    }
+
+
+
+    private Example<DepartmentsDO> convertExampleJPA(DepartmentsQuery query) {
+        DepartmentsDO probe = new DepartmentsDO();
+        if(!ObjectUtils.isEmpty(query.getDepartmentId())){
+            probe.setDepartmentId(query.getDepartmentId());
         }
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase();
+
+        Example<DepartmentsDO> example = Example.of(probe, matcher);
         return example;
     }
-
 }

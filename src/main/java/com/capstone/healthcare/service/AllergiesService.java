@@ -19,14 +19,14 @@ public interface AllergiesService {
 	 * @param
 	 * @return
 	 */
-    int add(AllergiesBO allergiesBO);
+    void add(AllergiesBO allergiesBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(AllergiesBO allergiesBO);
+    void update(AllergiesBO allergiesBO);
 
 
     /**

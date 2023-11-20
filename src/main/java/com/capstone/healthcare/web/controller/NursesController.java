@@ -50,7 +50,8 @@ public class NursesController {
 	@ResponseBody
 	public ResultModel add(@RequestBody NursesDTO nursesDTO){
 		NursesBO nursesBO = NursesConvert.toBO(nursesDTO);
-        return new ResultModel(nursesService.add(nursesBO));
+		nursesService.add(nursesBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class NursesController {
 	@ResponseBody
 	public ResultModel update(@RequestBody NursesDTO nursesDTO){
 		NursesBO nursesBO = NursesConvert.toBO(nursesDTO);
-        return new ResultModel(nursesService.update(nursesBO));
+		nursesService.update(nursesBO);
+        return new ResultModel();
 	}
 
 }

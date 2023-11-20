@@ -2,22 +2,23 @@ package com.capstone.healthcare.service.impl;
 
 import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
-import com.capstone.healthcare.dal.dao.NursesDAO;
 import com.capstone.healthcare.dal.dataobject.NursesDO;
+import com.capstone.healthcare.dal.jpa.NursesJPA;
 import com.capstone.healthcare.query.NursesQuery;
 import com.capstone.healthcare.service.NursesService;
 import com.capstone.healthcare.service.bo.NursesBO;
 import com.capstone.healthcare.service.convert.NursesConvert;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author xw
  * @email xw
@@ -27,24 +28,25 @@ import java.util.List;
 public class NursesServiceImpl implements NursesService {
 
 	@Autowired
-	private NursesDAO nursesDAO;
+	private NursesJPA nursesJPA;
 
 
     @Override
-    public int add(NursesBO nursesBO){
+    public void add(NursesBO nursesBO){
+        nursesBO.setNurseId(null);
         NursesDO nursesDO = NursesConvert.toDO(nursesBO);
-		return nursesDAO.insert(nursesDO);
+		nursesJPA.save(nursesDO);
     }
 
     @Override
-    public int update(NursesBO nursesBO){
+    public void update(NursesBO nursesBO){
 		NursesDO nursesDO = NursesConvert.toDO(nursesBO);
-        return nursesDAO.updateByPrimaryKeySelective(nursesDO);
+        nursesJPA.save(nursesDO);
     }
 
     @Override
     public List<NursesBO> findList(NursesQuery query){
-        List<NursesDO> listByQuery = nursesDAO.selectByExample(this.convertExample(query));
+        List<NursesDO> listByQuery = nursesJPA.findAll(this.convertExampleJPA(query));
         return NursesConvert.toBOList(listByQuery);
     }
 
@@ -53,7 +55,7 @@ public class NursesServiceImpl implements NursesService {
         //Setting the parameters of pagination
         Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
         page.setReasonable(Boolean.FALSE);
-        List<NursesDO> list = nursesDAO.selectByExample(this.convertExample(pagerCondition));
+        List<NursesDO> list = nursesJPA.findAll(this.convertExampleJPA(pagerCondition));
         //Setting the set of result
         PageListResult<NursesBO> pageListResult = new PageListResult(NursesConvert.toBOList(list));
         PageHelperAdaptor.setPageResult(page, pageListResult);
@@ -66,12 +68,27 @@ public class NursesServiceImpl implements NursesService {
         * @param nursesQuery
         * @return
         */
-    private Example convertExample(NursesQuery nursesQuery) {
-        Example example = new Example(NursesDO.class);
-        Example.Criteria criteria = example.createCriteria();
-        if (!ObjectUtils.isEmpty(nursesQuery.getNurseId())) {
-            criteria.andEqualTo("nurseId", nursesQuery.getNurseId());
+//    private Example convertExample(NursesQuery nursesQuery) {
+//        Example example = new Example(NursesDO.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        if (!ObjectUtils.isEmpty(nursesQuery.getNurseId())) {
+//            criteria.andEqualTo("nurseId", nursesQuery.getNurseId());
+//        }
+//        return example;
+//    }
+
+
+    private Example<NursesDO> convertExampleJPA(NursesQuery query) {
+        NursesDO probe = new NursesDO();
+        if (!ObjectUtils.isEmpty(query.getNurseId())) {
+            probe.setNurseId(query.getNurseId());
         }
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase();
+
+        Example<NursesDO> example = Example.of(probe, matcher);
         return example;
     }
 

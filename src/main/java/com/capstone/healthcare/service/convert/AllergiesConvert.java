@@ -24,7 +24,7 @@ public class AllergiesConvert {
         }
 
 		AllergiesBO allergiesBO = new AllergiesBO();
-        BeanUtils.copyProperties(allergiesBO, allergiesDO);
+        BeanUtils.copyProperties( allergiesDO,allergiesBO);
 		return allergiesBO;
 	}
 
@@ -34,7 +34,7 @@ public class AllergiesConvert {
         }
 
 		AllergiesDO allergiesDO = new AllergiesDO();
-        BeanUtils.copyProperties(allergiesDO, allergiesBO);
+        BeanUtils.copyProperties(allergiesBO,allergiesDO);
 		return allergiesDO;
 	}
 

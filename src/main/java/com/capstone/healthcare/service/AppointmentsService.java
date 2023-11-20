@@ -19,14 +19,14 @@ public interface AppointmentsService {
 	 * @param
 	 * @return
 	 */
-    int add(AppointmentsBO appointmentsBO);
+    void add(AppointmentsBO appointmentsBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(AppointmentsBO appointmentsBO);
+    void update(AppointmentsBO appointmentsBO);
 
 
     /**

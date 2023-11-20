@@ -48,7 +48,8 @@ public class PatientsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody PatientsDTO patientsDTO){
 		PatientsBO patientsBO = PatientsConvert.toBO(patientsDTO);
-        return new ResultModel(patientsService.add(patientsBO));
+		patientsService.add(patientsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -58,7 +59,8 @@ public class PatientsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody PatientsDTO patientsDTO){
 		PatientsBO patientsBO = PatientsConvert.toBO(patientsDTO);
-        return new ResultModel(patientsService.update(patientsBO));
+		patientsService.update(patientsBO);
+        return new ResultModel();
 	}
 
 	/**

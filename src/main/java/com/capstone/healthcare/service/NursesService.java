@@ -19,14 +19,14 @@ public interface NursesService {
 	 * @param
 	 * @return
 	 */
-    int add(NursesBO nursesBO);
+    void add(NursesBO nursesBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(NursesBO nursesBO);
+    void update(NursesBO nursesBO);
 
 
     /**

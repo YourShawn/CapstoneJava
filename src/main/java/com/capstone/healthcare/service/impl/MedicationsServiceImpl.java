@@ -2,22 +2,23 @@ package com.capstone.healthcare.service.impl;
 
 import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
-import com.capstone.healthcare.dal.dao.MedicationsDAO;
 import com.capstone.healthcare.dal.dataobject.MedicationsDO;
+import com.capstone.healthcare.dal.jpa.MedicationsJPA;
 import com.capstone.healthcare.query.MedicationsQuery;
 import com.capstone.healthcare.service.MedicationsService;
 import com.capstone.healthcare.service.bo.MedicationsBO;
 import com.capstone.healthcare.service.convert.MedicationsConvert;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author xw
  * @email xw
@@ -27,24 +28,25 @@ import java.util.List;
 public class MedicationsServiceImpl implements MedicationsService {
 
 	@Autowired
-	private MedicationsDAO medicationsDAO;
+	private MedicationsJPA medicationsJPA;
 
 
     @Override
-    public int add(MedicationsBO medicationsBO){
+    public void add(MedicationsBO medicationsBO){
+        medicationsBO.setMedicationId(null);
         MedicationsDO medicationsDO = MedicationsConvert.toDO(medicationsBO);
-		return medicationsDAO.insert(medicationsDO);
+        medicationsJPA.save(medicationsDO);
     }
 
     @Override
-    public int update(MedicationsBO medicationsBO){
+    public void update(MedicationsBO medicationsBO){
 		MedicationsDO medicationsDO = MedicationsConvert.toDO(medicationsBO);
-        return medicationsDAO.updateByPrimaryKeySelective(medicationsDO);
+        medicationsJPA.save(medicationsDO);
     }
 
     @Override
     public List<MedicationsBO> findList(MedicationsQuery query){
-        List<MedicationsDO> listByQuery = medicationsDAO.selectByExample(this.convertExample(query));
+        List<MedicationsDO> listByQuery = medicationsJPA.findAll(this.convertExampleJPA(query));
         return MedicationsConvert.toBOList(listByQuery);
     }
 
@@ -53,7 +55,7 @@ public class MedicationsServiceImpl implements MedicationsService {
         //Setting the parameters of pagination
         Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
         page.setReasonable(Boolean.FALSE);
-        List<MedicationsDO> list = medicationsDAO.selectByExample(this.convertExample(pagerCondition));
+        List<MedicationsDO> list = medicationsJPA.findAll(this.convertExampleJPA(pagerCondition));
         //Setting the set of result
         PageListResult<MedicationsBO> pageListResult = new PageListResult(MedicationsConvert.toBOList(list));
         PageHelperAdaptor.setPageResult(page, pageListResult);
@@ -66,13 +68,28 @@ public class MedicationsServiceImpl implements MedicationsService {
         * @param medicationsQuery
         * @return
         */
-    private Example convertExample(MedicationsQuery medicationsQuery) {
-        Example example = new Example(MedicationsDO.class);
-        Example.Criteria criteria = example.createCriteria();
-        if (!ObjectUtils.isEmpty(medicationsQuery.getMedicationId())) {
-            criteria.andEqualTo("medicationId", medicationsQuery.getMedicationId());
+//    private Example convertExample(MedicationsQuery medicationsQuery) {
+//        Example example = new Example(MedicationsDO.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        if (!ObjectUtils.isEmpty(medicationsQuery.getMedicationId())) {
+//            criteria.andEqualTo("medicationId", medicationsQuery.getMedicationId());
+//        }
+//        return example;
+//    }
+
+    private Example<MedicationsDO> convertExampleJPA(MedicationsQuery query) {
+        MedicationsDO probe = new MedicationsDO();
+        if (!ObjectUtils.isEmpty(query.getMedicationId())) {
+            probe.setMedicationId(query.getMedicationId());
         }
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase();
+
+        Example<MedicationsDO> example = Example.of(probe, matcher);
         return example;
     }
+
 
 }

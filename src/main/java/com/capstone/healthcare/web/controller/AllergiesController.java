@@ -51,7 +51,8 @@ public class AllergiesController {
 	@ResponseBody
 	public ResultModel add(@RequestBody AllergiesDTO allergiesDTO){
 		AllergiesBO allergiesBO = AllergiesConvert.toBO(allergiesDTO);
-        return new ResultModel(allergiesService.add(allergiesBO));
+		allergiesService.add(allergiesBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -61,7 +62,8 @@ public class AllergiesController {
 	@ResponseBody
 	public ResultModel update(@RequestBody AllergiesDTO allergiesDTO){
 		AllergiesBO allergiesBO = AllergiesConvert.toBO(allergiesDTO);
-        return new ResultModel(allergiesService.update(allergiesBO));
+		allergiesService.update(allergiesBO);
+        return new ResultModel();
 	}
 
 }

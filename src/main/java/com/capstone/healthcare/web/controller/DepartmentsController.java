@@ -50,7 +50,8 @@ public class DepartmentsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody DepartmentsDTO departmentsDTO){
 		DepartmentsBO departmentsBO = DepartmentsConvert.toBO(departmentsDTO);
-        return new ResultModel(departmentsService.add(departmentsBO));
+		departmentsService.add(departmentsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class DepartmentsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody DepartmentsDTO departmentsDTO){
 		DepartmentsBO departmentsBO = DepartmentsConvert.toBO(departmentsDTO);
-        return new ResultModel(departmentsService.update(departmentsBO));
+		departmentsService.update(departmentsBO);
+        return new ResultModel();
 	}
 
 }

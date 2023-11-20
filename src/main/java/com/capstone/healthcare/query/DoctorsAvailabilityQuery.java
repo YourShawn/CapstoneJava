@@ -1,10 +1,11 @@
 package com.capstone.healthcare.query;
 
 
-import lombok.Data;
-import java.util.Date;
 import com.capstone.healthcare.common.modules.PageInfo;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * Object for querying

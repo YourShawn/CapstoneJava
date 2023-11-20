@@ -1,6 +1,5 @@
 package com.capstone.healthcare.common.modules;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

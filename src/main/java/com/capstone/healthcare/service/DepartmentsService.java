@@ -19,14 +19,14 @@ public interface DepartmentsService {
 	 * @param
 	 * @return
 	 */
-    int add(DepartmentsBO departmentsBO);
+    void add(DepartmentsBO departmentsBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(DepartmentsBO departmentsBO);
+    void update(DepartmentsBO departmentsBO);
 
 
     /**

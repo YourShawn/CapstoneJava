@@ -11,12 +11,12 @@ import com.capstone.healthcare.service.bo.UsersBO;
  */
 public interface RegistrationService {
 
-    int add(UsersBO usersBO);
+    void add(UsersBO usersBO);
 
     /**
      * 修改数据
      * @param
      * @return
      */
-    int update(UsersBO usersBO);
+    void update(UsersBO usersBO);
 }

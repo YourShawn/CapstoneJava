@@ -50,7 +50,8 @@ public class PatientLabTestsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody PatientLabTestsDTO patientLabTestsDTO){
 		PatientLabTestsBO patientLabTestsBO = PatientLabTestsConvert.toBO(patientLabTestsDTO);
-        return new ResultModel(patientLabTestsService.add(patientLabTestsBO));
+		patientLabTestsService.add(patientLabTestsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class PatientLabTestsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody PatientLabTestsDTO patientLabTestsDTO){
 		PatientLabTestsBO patientLabTestsBO = PatientLabTestsConvert.toBO(patientLabTestsDTO);
-        return new ResultModel(patientLabTestsService.update(patientLabTestsBO));
+		patientLabTestsService.update(patientLabTestsBO);
+        return new ResultModel();
 	}
 
 }

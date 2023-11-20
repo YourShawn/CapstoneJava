@@ -1,4 +1,4 @@
-package com.iaminca.web.controller;
+package com.capstone.healthcare.web.controller;
 
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
@@ -50,7 +50,8 @@ public class MedicationsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody MedicationsDTO medicationsDTO){
 		MedicationsBO medicationsBO = MedicationsConvert.toBO(medicationsDTO);
-        return new ResultModel(medicationsService.add(medicationsBO));
+		medicationsService.add(medicationsBO);
+        return new ResultModel();
 	}
 	
 	/**
@@ -60,7 +61,8 @@ public class MedicationsController {
 	@ResponseBody
 	public ResultModel update(@RequestBody MedicationsDTO medicationsDTO){
 		MedicationsBO medicationsBO = MedicationsConvert.toBO(medicationsDTO);
-        return new ResultModel(medicationsService.update(medicationsBO));
+		medicationsService.update(medicationsBO);
+        return new ResultModel();
 	}
 
 }
