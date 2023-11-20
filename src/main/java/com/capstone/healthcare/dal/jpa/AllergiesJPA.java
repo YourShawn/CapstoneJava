@@ -12,4 +12,5 @@ import org.springframework.data.repository.query.QueryByExampleExecutor;
  * @date 2023-10-16 09:23:19
  */
 public interface AllergiesJPA extends JpaRepository<AllergiesDO,Integer>, QueryByExampleExecutor<AllergiesDO> {
+  
 }

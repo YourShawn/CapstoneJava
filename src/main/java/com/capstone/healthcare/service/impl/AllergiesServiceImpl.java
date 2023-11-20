@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 
@@ -42,6 +43,12 @@ public class AllergiesServiceImpl implements AllergiesService {
     public void update(AllergiesBO allergiesBO){
 		AllergiesDO allergiesDO = AllergiesConvert.toDO(allergiesBO);
         allergiesJPA.save(allergiesDO);
+    }
+
+    @Override
+    public AllergiesBO findBtId(Integer allergyId) {
+        Optional<AllergiesDO> byId = allergiesJPA.findById(allergyId);
+        return AllergiesConvert.toBO(byId.get());
     }
 
     @Override

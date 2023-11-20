@@ -28,7 +28,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public void update(UsersBO usersBO){
         UsersDO usersDO = UsersConvert.toDO(usersBO);
-        usersJPA.save(usersDO);
+        usersJPA.updateSelective(usersDO);
     }
 
 

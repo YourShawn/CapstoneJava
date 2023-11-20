@@ -28,6 +28,7 @@ public interface AllergiesService {
      */
     void update(AllergiesBO allergiesBO);
 
+    AllergiesBO findBtId(Integer allergyId);
 
     /**
      * query
