@@ -30,20 +30,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         usersJPA.save(usersDO);
     }
 
-    /**
-     *
-     * @param usersQuery
-     * @return
-     */
-//    private Example convertExample(UsersQuery usersQuery) {
-//        Example example = new Example(UsersDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(usersQuery.getUserId())) {
-//            criteria.andEqualTo("userId", usersQuery.getUserId());
-//        }
-//        return example;
-//    }
-
 
 
 

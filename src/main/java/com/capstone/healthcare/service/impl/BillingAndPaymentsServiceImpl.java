@@ -1,15 +1,17 @@
 package com.capstone.healthcare.service.impl;
 
 import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.dal.dataobject.BillingAndPaymentsDO;
 import com.capstone.healthcare.dal.jpa.BillingAndPaymentsJPA;
 import com.capstone.healthcare.query.BillingAndPaymentsQuery;
 import com.capstone.healthcare.service.BillingAndPaymentsService;
+import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.BillingAndPaymentsBO;
+import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.capstone.healthcare.service.convert.BillingAndPaymentsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -53,18 +55,15 @@ public class BillingAndPaymentsServiceImpl implements BillingAndPaymentsService 
 
     @Override
     public PageListResult<BillingAndPaymentsBO> findPage(BillingAndPaymentsQuery pagerCondition){
-        //Setting the parameters of pagination
-//        pagerCondition.setOrderBy(" ");
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<BillingAndPaymentsDO> list = billingAndPaymentsJPA.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<BillingAndPaymentsBO> pageListResult = new PageListResult(BillingAndPaymentsConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"billingId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<BillingAndPaymentsDO> page = billingAndPaymentsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<BillingAndPaymentsBO> pageListResult = new PageListResult(BillingAndPaymentsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
     /**
         *

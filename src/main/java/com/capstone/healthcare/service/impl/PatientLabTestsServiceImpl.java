@@ -8,8 +8,7 @@ import com.capstone.healthcare.service.PatientLabTestsService;
 import com.capstone.healthcare.service.bo.PatientLabTestsBO;
 import com.capstone.healthcare.service.convert.PatientLabTestsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -49,17 +48,15 @@ public class PatientLabTestsServiceImpl implements PatientLabTestsService {
 
     @Override
     public PageListResult<PatientLabTestsBO> findPage(PatientLabTestsQuery pagerCondition){
-        //Setting the parameters of pagination
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<PatientLabTestsDO> list = patientLabTestsJPA.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<PatientLabTestsBO> pageListResult = new PageListResult(PatientLabTestsConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"patientTestId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<PatientLabTestsDO> page = patientLabTestsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<PatientLabTestsBO> pageListResult = new PageListResult(PatientLabTestsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
     /**
         *

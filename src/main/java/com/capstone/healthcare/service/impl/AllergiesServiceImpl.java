@@ -9,8 +9,7 @@ import com.capstone.healthcare.service.AllergiesService;
 import com.capstone.healthcare.service.bo.AllergiesBO;
 import com.capstone.healthcare.service.convert.AllergiesConvert;
 import jakarta.annotation.Resource;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -53,18 +52,15 @@ public class AllergiesServiceImpl implements AllergiesService {
 
     @Override
     public PageListResult<AllergiesBO> findPage(AllergiesQuery pagerCondition){
-        //Setting pagination properties
-//        pagerCondition.setOrderBy(" ");
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<AllergiesDO> list = allergiesDAO.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<AllergiesBO> pageListResult = new PageListResult(AllergiesConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"allergyId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<AllergiesDO> pageList = allergiesJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<AllergiesBO> pageListResult = new PageListResult(AllergiesConvert.toBOList(pageList.toList()));
+        pageListResult.setTotal(pageList.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
     /**
         *

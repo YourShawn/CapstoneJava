@@ -1,7 +1,6 @@
 package com.capstone.healthcare.service.impl;
 
 
-import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.dal.jpa.AppointmentsJPA;
@@ -9,10 +8,8 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.convert.AppointmentsConvert;
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -56,36 +53,16 @@ public class AppointmentsServiceImpl implements AppointmentsService {
 
     @Override
     public PageListResult<AppointmentsBO> findPage(AppointmentsQuery pagerCondition){
-        //Setting the parameters of pagination
-        pagerCondition.setOrderBy(" ");
-        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-        page.setReasonable(Boolean.FALSE);
-        List<AppointmentsDO> list = appointmentsJPA.findAll(this.convertExampleJPA(pagerCondition));
+        Sort sort = Sort.by(Sort.Direction.DESC,"appointmentId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<AppointmentsDO> page = appointmentsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
         //Setting the set of result
-        PageListResult<AppointmentsBO> pageListResult = new PageListResult(AppointmentsConvert.toBOList(list));
-        PageHelperAdaptor.setPageResult(page, pageListResult);
+        PageListResult<AppointmentsBO> pageListResult = new PageListResult(AppointmentsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
         pageListResult.setPageNum(pagerCondition.getPageNum());
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;
     }
-    /**
-        *
-        * @param appointmentsQuery
-        * @return
-        */
-//    private Example convertExample(AppointmentsQuery appointmentsQuery) {
-//        Example example = new Example(AppointmentsDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(appointmentsQuery.getAppointmentId())) {
-//            criteria.andEqualTo("appointmentId", appointmentsQuery.getAppointmentId());
-//        }
-//
-//        if(!ObjectUtils.isEmpty(appointmentsQuery.getDoctorId())) {
-//            criteria.andEqualTo("doctorId",appointmentsQuery.getDoctorId());
-//        }
-//        return example;
-//    }
-
 
     private org.springframework.data.domain.Example<AppointmentsDO> convertExampleJPA(AppointmentsQuery query) {
         AppointmentsDO probe = new AppointmentsDO();

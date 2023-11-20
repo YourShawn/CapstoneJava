@@ -8,8 +8,7 @@ import com.capstone.healthcare.service.DoctorsAvailabilityService;
 import com.capstone.healthcare.service.bo.DoctorsAvailabilityBO;
 import com.capstone.healthcare.service.convert.DoctorsAvailabilityConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -53,34 +52,16 @@ public class DoctorsAvailabilityServiceImpl implements DoctorsAvailabilityServic
 
     @Override
     public PageListResult<DoctorsAvailabilityBO> findPage(DoctorsAvailabilityQuery pagerCondition){
-//        //Setting the parameters of pagination
-//        pagerCondition.setOrderBy(" ");
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<DoctorsAvailabilityDO> list = doctorsAvailabilityJPA.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<DoctorsAvailabilityBO> pageListResult = new PageListResult(DoctorsAvailabilityConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"availabilityId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<DoctorsAvailabilityDO> page = doctorsAvailabilityJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<DoctorsAvailabilityBO> pageListResult = new PageListResult(DoctorsAvailabilityConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
-    /**
-        *
-        * @param doctorsAvailabilityQuery
-        * @return
-        */
-//    private Example convertExample(DoctorsAvailabilityQuery doctorsAvailabilityQuery) {
-//        Example example = new Example(DoctorsAvailabilityDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(doctorsAvailabilityQuery.getAvailabilityId())) {
-//            criteria.andEqualTo("availabilityId", doctorsAvailabilityQuery.getAvailabilityId());
-//        }
-//        return example;
-//    }
-
-
 
 
     private Example<DoctorsAvailabilityDO> convertExampleJPA(DoctorsAvailabilityQuery query) {

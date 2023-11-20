@@ -26,19 +26,19 @@ public class PageListResult<T> implements Serializable {
 	/**
 	 * 记录总数
 	 */
-	private Integer total;
+	private Long total;
 
 	public PageListResult() {
 	}
 
-	public PageListResult(List<T> list, Integer pageNum, Integer pageSize, Integer total) {
+	public PageListResult(List<T> list, Integer pageNum, Integer pageSize, Long total) {
 		this.list = list;
 		this.pageNum = pageNum;
 		this.pageSize = pageSize;
 		this.total = total;
 	}
 
-	public PageListResult(List<T> list, Integer total) {
+	public PageListResult(List<T> list, Long total) {
 		this.list = list;
 		this.total = total;
 	}
@@ -75,11 +75,11 @@ public class PageListResult<T> implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-	public Integer getTotal() {
+	public Long getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
 

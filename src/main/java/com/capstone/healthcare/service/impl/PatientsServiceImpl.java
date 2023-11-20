@@ -8,12 +8,12 @@ import com.capstone.healthcare.dal.jpa.PatientsJPA;
 import com.capstone.healthcare.query.PatientLabTestsQuery;
 import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.PatientsService;
+import com.capstone.healthcare.service.bo.PatientLabTestsBO;
 import com.capstone.healthcare.service.bo.PatientsBO;
+import com.capstone.healthcare.service.convert.PatientLabTestsConvert;
 import com.capstone.healthcare.service.convert.PatientsConvert;
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -53,17 +53,15 @@ public class PatientsServiceImpl implements PatientsService {
 
     @Override
     public PageListResult<PatientsBO> findPage(PatientsQuery pagerCondition){
-        //Setting the parameters of pagination
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<PatientsDO> list = patientsJPA.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<PatientsBO> pageListResult = new PageListResult(PatientsConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"patientId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<PatientsDO> page = patientsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<PatientsBO> pageListResult = new PageListResult(PatientsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
 
     /**

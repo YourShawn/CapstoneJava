@@ -42,7 +42,7 @@ public class PageHelperAdaptor {
 
     public static void setPageResult(Page page, PageListResult pageListResult) {
 
-        pageListResult.setTotal(Long.valueOf(page.getTotal()).intValue());
+        pageListResult.setTotal(Long.valueOf(page.getTotal()));
     }
 
     /**
@@ -57,7 +57,7 @@ public class PageHelperAdaptor {
 
         PageListResult<T> pageListResult = new PageListResult<>();
 
-        pageListResult.setTotal(Long.valueOf(page.getTotal()).intValue());
+        pageListResult.setTotal(Long.valueOf(page.getTotal()));
         pageListResult.setPageNum(page.getPageNum());
         pageListResult.setPageSize(page.getPageSize());
         pageListResult.setList(list);

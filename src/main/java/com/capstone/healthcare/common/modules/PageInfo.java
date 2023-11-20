@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class PageInfo implements Serializable {
 
 	// 页码
-	private static final int PAGE_NUMBER = 1;
+	private static final int PAGE_NUMBER = 0;
 
 	// 页面大小
 	private static final int PAGE_SIZE = 10;

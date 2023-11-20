@@ -8,8 +8,7 @@ import com.capstone.healthcare.service.LaboratoryTestsService;
 import com.capstone.healthcare.service.bo.LaboratoryTestsBO;
 import com.capstone.healthcare.service.convert.LaboratoryTestsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -50,34 +49,16 @@ public class LaboratoryTestsServiceImpl implements LaboratoryTestsService {
 
     @Override
     public PageListResult<LaboratoryTestsBO> findPage(LaboratoryTestsQuery pagerCondition){
-        //Setting the parameters of pagination
-//        pagerCondition.setOrderBy(" ");
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<LaboratoryTestsDO> list = laboratoryTestsDAO.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<LaboratoryTestsBO> pageListResult = new PageListResult(LaboratoryTestsConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"testId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<LaboratoryTestsDO> page = laboratoryTestsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<LaboratoryTestsBO> pageListResult = new PageListResult(LaboratoryTestsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
-    /**
-        *
-        * @param laboratoryTestsQuery
-        * @return
-        */
-//    private Example convertExample(LaboratoryTestsQuery laboratoryTestsQuery) {
-//        Example example = new Example(LaboratoryTestsDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(laboratoryTestsQuery.getTestId())) {
-//            criteria.andEqualTo("testId", laboratoryTestsQuery.getTestId());
-//        }
-//        return example;
-//    }
-
-
 
     private Example<LaboratoryTestsDO> convertExampleJPA(LaboratoryTestsQuery query) {
         LaboratoryTestsDO probe = new LaboratoryTestsDO();

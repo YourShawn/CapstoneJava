@@ -1,6 +1,5 @@
 package com.capstone.healthcare.service.impl;
 
-import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.NursesDO;
 import com.capstone.healthcare.dal.jpa.NursesJPA;
@@ -8,10 +7,8 @@ import com.capstone.healthcare.query.NursesQuery;
 import com.capstone.healthcare.service.NursesService;
 import com.capstone.healthcare.service.bo.NursesBO;
 import com.capstone.healthcare.service.convert.NursesConvert;
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -52,13 +49,12 @@ public class NursesServiceImpl implements NursesService {
 
     @Override
     public PageListResult<NursesBO> findPage(NursesQuery pagerCondition){
-        //Setting the parameters of pagination
-        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-        page.setReasonable(Boolean.FALSE);
-        List<NursesDO> list = nursesJPA.findAll(this.convertExampleJPA(pagerCondition));
+        Sort sort = Sort.by(Sort.Direction.DESC,"nurseId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<NursesDO> page = nursesJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
         //Setting the set of result
-        PageListResult<NursesBO> pageListResult = new PageListResult(NursesConvert.toBOList(list));
-        PageHelperAdaptor.setPageResult(page, pageListResult);
+        PageListResult<NursesBO> pageListResult = new PageListResult(NursesConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
         pageListResult.setPageNum(pagerCondition.getPageNum());
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;

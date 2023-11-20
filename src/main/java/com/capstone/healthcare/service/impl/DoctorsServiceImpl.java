@@ -8,8 +8,7 @@ import com.capstone.healthcare.service.DoctorsService;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.service.convert.DoctorsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -54,33 +53,16 @@ public class DoctorsServiceImpl implements DoctorsService {
 
     @Override
     public PageListResult<DoctorsBO> findPage(DoctorsQuery pagerCondition){
-        //Setting the parameters of pagination
-//        pagerCondition.setOrderBy(" ");
-//        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-//        page.setReasonable(Boolean.FALSE);
-//        List<DoctorsDO> list = doctorsJPA.selectByExample(this.convertExample(pagerCondition));
-//        //Setting the set of result
-//        PageListResult<DoctorsBO> pageListResult = new PageListResult(DoctorsConvert.toBOList(list));
-//        PageHelperAdaptor.setPageResult(page, pageListResult);
-//        pageListResult.setPageNum(pagerCondition.getPageNum());
-//        pageListResult.setPageSize(pagerCondition.getPageSize());
-//        return pageListResult;
-        return null;
+        Sort sort = Sort.by(Sort.Direction.DESC,"doctorId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<DoctorsDO> page = doctorsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<DoctorsBO> pageListResult = new PageListResult(DoctorsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
     }
-    /**
-        *
-        * @param doctorsQuery
-        * @return
-        */
-//    private Example convertExample(DoctorsQuery doctorsQuery) {
-//        Example example = new Example(DoctorsDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(doctorsQuery.getDoctorId())) {
-//            criteria.andEqualTo("doctorId", doctorsQuery.getDoctorId());
-//        }
-//        return example;
-//    }
-//
 
 
     private Example<DoctorsDO> convertExampleJPA(DoctorsQuery query) {

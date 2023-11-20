@@ -1,6 +1,5 @@
 package com.capstone.healthcare.service.impl;
 
-import com.capstone.healthcare.common.modules.PageHelperAdaptor;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.PrescriptionsDO;
 import com.capstone.healthcare.dal.jpa.PrescriptionsJPA;
@@ -8,10 +7,8 @@ import com.capstone.healthcare.query.PrescriptionsQuery;
 import com.capstone.healthcare.service.PrescriptionsService;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
 import com.capstone.healthcare.service.convert.PrescriptionsConvert;
-import com.github.pagehelper.Page;
 import jakarta.annotation.Resource;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -50,13 +47,12 @@ public class PrescriptionsServiceImpl implements PrescriptionsService {
 
     @Override
     public PageListResult<PrescriptionsBO> findPage(PrescriptionsQuery pagerCondition) {
-        //Setting the parameters of pagination
-        Page page = PageHelperAdaptor.preparePage(pagerCondition, Boolean.TRUE);
-        page.setReasonable(Boolean.FALSE);
-        List<PrescriptionsDO> list = prescriptionsJPA.findAll(this.convertExampleJPA(pagerCondition));
+        Sort sort = Sort.by(Sort.Direction.DESC,"prescriptionId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<PrescriptionsDO> page = prescriptionsJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
         //Setting the set of result
-        PageListResult<PrescriptionsBO> pageListResult = new PageListResult(PrescriptionsConvert.toBOList(list));
-        PageHelperAdaptor.setPageResult(page, pageListResult);
+        PageListResult<PrescriptionsBO> pageListResult = new PageListResult(PrescriptionsConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
         pageListResult.setPageNum(pagerCondition.getPageNum());
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;

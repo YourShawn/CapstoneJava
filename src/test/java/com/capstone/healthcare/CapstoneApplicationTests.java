@@ -1,6 +1,7 @@
 package com.capstone.healthcare;
 
 import com.capstone.healthcare.common.Constants;
+import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.AllergiesQuery;
 import com.capstone.healthcare.service.AllergiesService;
 import com.capstone.healthcare.service.bo.AllergiesBO;
@@ -18,9 +19,18 @@ class CapstoneApplicationTests {
 	@Test
 	void contextLoads() {
 		AllergiesQuery query = new AllergiesQuery();
-		query.setAllergyId(2);
+		query.setAllergyId(1);
 		List<AllergiesBO> list = allergiesService.findList(query);
 		System.out.println(Constants.GSON.toJson(list));
+	}
+
+
+	@Test
+	void page() {
+		AllergiesQuery query = new AllergiesQuery();
+		query.setPatientId(1);
+		PageListResult<AllergiesBO> page = allergiesService.findPage(query);
+		System.out.println(Constants.GSON.toJson(page));
 	}
 
 }
