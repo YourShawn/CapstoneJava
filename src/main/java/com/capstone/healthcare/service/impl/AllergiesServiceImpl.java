@@ -33,6 +33,7 @@ public class AllergiesServiceImpl implements AllergiesService {
 
     @Override
     public void add(AllergiesBO allergiesBO){
+        allergiesBO.setAllergyId(null);
         AllergiesDO allergiesDO = AllergiesConvert.toDO(allergiesBO);
 		 allergiesJPA.save(allergiesDO);
     }
@@ -62,20 +63,6 @@ public class AllergiesServiceImpl implements AllergiesService {
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;
     }
-    /**
-        *
-        * @param query
-        * @return
-        */
-//    private Example convertExample(AllergiesQuery allergiesQuery) {
-//        Example example = new Example(AllergiesDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(allergiesQuery.getAllergyId())) {
-//            criteria.andEqualTo("allergyId", allergiesQuery.getAllergyId());
-//        }
-//        return example;
-//    }
-
     private Example<AllergiesDO> convertExampleJPA(AllergiesQuery query) {
         AllergiesDO probe = new AllergiesDO();
         if(!ObjectUtils.isEmpty(query.getAllergyId())){

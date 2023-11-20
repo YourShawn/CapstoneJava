@@ -20,6 +20,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public void add(UsersBO usersBO){
+        usersBO.setUserId(null);
         UsersDO usersDO = UsersConvert.toDO(usersBO);
         usersJPA.save(usersDO);
     }

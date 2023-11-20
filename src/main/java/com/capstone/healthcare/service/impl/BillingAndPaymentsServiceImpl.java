@@ -34,9 +34,6 @@ public class BillingAndPaymentsServiceImpl implements BillingAndPaymentsService 
     @Override
     public void add(BillingAndPaymentsBO billingAndPaymentsBO){
         billingAndPaymentsBO.setBillingId(null);
-//        billingAndPaymentsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
-//        billingAndPaymentsBO.setCreateTime(new Date());
-//        billingAndPaymentsBO.setUpdateTime( billingAndPaymentsBO.getCreateTime());
         BillingAndPaymentsDO billingAndPaymentsDO = BillingAndPaymentsConvert.toDO(billingAndPaymentsBO);
         billingAndPaymentsJPA.save(billingAndPaymentsDO);
     }

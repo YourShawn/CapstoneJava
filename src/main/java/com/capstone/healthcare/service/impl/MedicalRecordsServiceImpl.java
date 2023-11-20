@@ -28,6 +28,7 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService {
 
     @Override
     public void add(MedicalRecordsBO medicalRecordsBO) {
+        medicalRecordsBO.setRecordId(null);
         MedicalRecordsDO medicalRecordsDO = MedicalRecordsConvert.toDO(medicalRecordsBO);
         medicalRecordsJPA.save(medicalRecordsDO);
     }

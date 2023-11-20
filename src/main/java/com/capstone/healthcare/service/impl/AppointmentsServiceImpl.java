@@ -32,9 +32,6 @@ public class AppointmentsServiceImpl implements AppointmentsService {
     @Override
     public void add(AppointmentsBO appointmentsBO){
         appointmentsBO.setAppointmentId(null);
-//        appointmentsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
-//        appointmentsBO.setCreateTime(new Date());
-//        appointmentsBO.setUpdateTime( appointmentsBO.getCreateTime());
         AppointmentsDO appointmentsDO = AppointmentsConvert.toDO(appointmentsBO);
 		appointmentsJPA.save(appointmentsDO);
     }

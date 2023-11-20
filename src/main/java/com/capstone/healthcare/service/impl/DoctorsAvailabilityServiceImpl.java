@@ -31,9 +31,6 @@ public class DoctorsAvailabilityServiceImpl implements DoctorsAvailabilityServic
     @Override
     public void add(DoctorsAvailabilityBO doctorsAvailabilityBO){
         doctorsAvailabilityBO.setAvailabilityId(null);
-//        doctorsAvailabilityBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
-//        doctorsAvailabilityBO.setCreateTime(new Date());
-//        doctorsAvailabilityBO.setUpdateTime( doctorsAvailabilityBO.getCreateTime());
         DoctorsAvailabilityDO doctorsAvailabilityDO = DoctorsAvailabilityConvert.toDO(doctorsAvailabilityBO);
         doctorsAvailabilityJPA.save(doctorsAvailabilityDO);
     }

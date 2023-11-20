@@ -30,6 +30,7 @@ public class PatientLabTestsServiceImpl implements PatientLabTestsService {
 
     @Override
     public void add(PatientLabTestsBO patientLabTestsBO){
+        patientLabTestsBO.setPatientId(null);
         PatientLabTestsDO patientLabTestsDO = PatientLabTestsConvert.toDO(patientLabTestsBO);
 		patientLabTestsJPA.save(patientLabTestsDO);
     }

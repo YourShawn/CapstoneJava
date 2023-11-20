@@ -35,6 +35,7 @@ public class PatientsServiceImpl implements PatientsService {
 
     @Override
     public void add(PatientsBO patientsBO){
+        patientsBO.setPatientId(null);
         PatientsDO patientsDO = PatientsConvert.toDO(patientsBO);
 		patientsJPA.save(patientsDO);
     }

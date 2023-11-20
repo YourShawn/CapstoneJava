@@ -31,9 +31,6 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public void add(DepartmentsBO departmentsBO){
         departmentsBO.setDepartmentId(null);
-//        departmentsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
-//        departmentsBO.setCreateTime(new Date());
-//        departmentsBO.setUpdateTime( departmentsBO.getCreateTime());
         DepartmentsDO departmentsDO = DepartmentsConvert.toDO(departmentsBO);
         departmentsJPA.save(departmentsDO);
     }

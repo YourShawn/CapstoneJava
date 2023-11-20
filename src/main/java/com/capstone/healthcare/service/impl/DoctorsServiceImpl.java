@@ -32,9 +32,6 @@ public class DoctorsServiceImpl implements DoctorsService {
     @Override
     public void add(DoctorsBO doctorsBO){
         doctorsBO.setDoctorId(null);
-//        doctorsBO.setDelFlag(DelFlagEnum.NOT_DEL.getCode());
-//        doctorsBO.setCreateTime(new Date());
-//        doctorsBO.setUpdateTime( doctorsBO.getCreateTime());
         DoctorsDO doctorsDO = DoctorsConvert.toDO(doctorsBO);
         doctorsJPA.save(doctorsDO);
     }
