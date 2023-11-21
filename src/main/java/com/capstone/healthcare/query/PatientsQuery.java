@@ -41,4 +41,10 @@ public class PatientsQuery extends PageInfo{
 	private String haveAllergies;
 	/***/
 	private String assignedDoctor;
+	/***/
+	private String bloodGroup;
+	/***/
+	private String patientHistory;
+	/***/
+	private String maritalStatus;
 }

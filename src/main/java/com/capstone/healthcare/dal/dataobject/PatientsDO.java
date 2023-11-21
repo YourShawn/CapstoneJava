@@ -43,7 +43,12 @@ public class PatientsDO {
 	private String haveAllergies;
 	/***/
 	private Integer assignedDoctor;
-
+	/***/
+	private String bloodGroup;
+	/***/
+	private String patientHistory;
+	/***/
+	private String maritalStatus;
 
 
 	@Transient
