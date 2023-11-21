@@ -27,7 +27,6 @@ public interface AppointmentsService {
      */
     void update(AppointmentsBO appointmentsBO);
 
-
     /**
      * query
      * @param query

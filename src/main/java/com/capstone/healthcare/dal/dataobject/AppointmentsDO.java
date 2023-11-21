@@ -32,4 +32,6 @@ public class AppointmentsDO {
 	private String reasonForAppointment;
 	/***/
 	private String status;
+	/***/
+	private Integer isActive;
 }

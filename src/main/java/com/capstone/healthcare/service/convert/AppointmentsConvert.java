@@ -32,9 +32,16 @@ public class AppointmentsConvert {
         if (appointmentsBO == null) {
             return null;
         }
-
 		AppointmentsDO appointmentsDO = new AppointmentsDO();
-        BeanUtils.copyProperties(appointmentsBO, appointmentsDO);
+
+		if (appointmentsBO.getAppointmentId() != null ) {
+			// Update only the specified fields from the request
+			if (appointmentsBO.getIsActive() != null) {
+				appointmentsDO.setIsActive(appointmentsBO.getIsActive());
+			}
+		} else {
+			BeanUtils.copyProperties(appointmentsBO, appointmentsDO);
+		}
 		return appointmentsDO;
 	}
 

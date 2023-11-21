@@ -28,4 +28,6 @@ public class AppointmentsDTO {
 	private String reasonForAppointment;
 	/***/
 	private String status;
+	/***/
+	private Integer isActive;
 }

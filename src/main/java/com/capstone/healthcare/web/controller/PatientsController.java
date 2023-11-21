@@ -46,6 +46,7 @@ public class PatientsController {
 	@RequestMapping("/add")
 	@ResponseBody
 	public ResultModel add(@RequestBody PatientsDTO patientsDTO){
+		System.out.println("patientsDTO:-->"+patientsDTO.getFirstName());
 		PatientsBO patientsBO = PatientsConvert.toBO(patientsDTO);
 		patientsService.add(patientsBO);
         return new ResultModel();
