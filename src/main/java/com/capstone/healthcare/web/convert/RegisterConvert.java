@@ -1,8 +1,16 @@
 package com.capstone.healthcare.web.convert;
 
+import com.capstone.healthcare.dal.dataobject.UsersDO;
+import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.UsersBO;
+import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import com.capstone.healthcare.web.dto.UsersDTO;
+import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collections;
+import java.util.List;
 
 public class RegisterConvert {
 
@@ -26,4 +34,17 @@ public class RegisterConvert {
         return usersDTO;
     }
 
+    public static List<UsersDTO> toDTOList(List<UsersBO> boList) {
+        if (CollectionUtils.isEmpty(boList)) {
+            return Collections.emptyList();
+        }
+
+        List<UsersDTO> dtoList = Lists.newArrayList();
+        for (UsersBO usersBO : boList) {
+            if (usersBO != null) {
+                dtoList.add(toDTO(usersBO));
+            }
+        }
+        return dtoList;
+    }
 }
