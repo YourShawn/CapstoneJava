@@ -18,9 +18,9 @@ import java.util.List;
  */
 @Repository
 public interface PrescriptionsJPA2 extends CrudRepository<PrescriptionsDO,Integer>, QuerydslPredicateExecutor<PrescriptionsDO> {
-    @Query(value = "SELECT YEAR(prescription_date) AS year, COUNT(prescription_id) AS count" +
-            " FROM prescriptions" +
-            " GROUP BY YEAR(prescription_date);", nativeQuery = true)
-    List<Object[]> groupByYear();
+        @Query(value = "SELECT YEAR(prescription_date) AS year, COUNT(prescription_id) AS count" +
+                " FROM prescriptions" +
+                " GROUP BY YEAR(prescription_date) order by year;", nativeQuery = true)
+        List<Object[]> groupByYear();
         public List<PrescriptionsDO> findAllByOrderByPrescriptionId();
 }

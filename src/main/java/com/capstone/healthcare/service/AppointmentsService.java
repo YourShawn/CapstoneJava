@@ -3,6 +3,7 @@ package com.capstone.healthcare.service;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
+import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 
 import java.util.List;
 /**
@@ -15,14 +16,12 @@ import java.util.List;
 public interface AppointmentsService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(AppointmentsBO appointmentsBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */
@@ -36,4 +35,8 @@ public interface AppointmentsService {
      */
     List<AppointmentsBO> findList(AppointmentsQuery query);
     PageListResult<AppointmentsBO> findPage(AppointmentsQuery query);
+
+
+
+    List<AppointmentsByDayBO> findGroupDays();
 }

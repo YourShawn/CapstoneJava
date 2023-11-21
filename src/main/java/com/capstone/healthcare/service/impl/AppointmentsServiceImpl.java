@@ -4,15 +4,21 @@ package com.capstone.healthcare.service.impl;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.dal.jpa.AppointmentsJPA;
+import com.capstone.healthcare.dal.jpa.AppointmentsJPA2;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
+import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 import com.capstone.healthcare.service.convert.AppointmentsConvert;
+import com.google.common.collect.Lists;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +33,9 @@ public class AppointmentsServiceImpl implements AppointmentsService {
 
 	@Autowired
 	private AppointmentsJPA appointmentsJPA;
+
+    @Autowired
+    private AppointmentsJPA2 appointmentsJPA2;
 
 
     @Override
@@ -59,6 +68,21 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         pageListResult.setPageNum(pagerCondition.getPageNum());
         pageListResult.setPageSize(pagerCondition.getPageSize());
         return pageListResult;
+    }
+
+    @Override
+    public List<AppointmentsByDayBO> findGroupDays() {
+        ArrayList<AppointmentsByDayBO> list = Lists.newArrayList();
+        List<Object[]> objects = appointmentsJPA2.groupByDays();
+        if(CollectionUtils.isEmpty(objects)){
+            return list;
+        }
+        for(Object[] objArray :objects){
+            AppointmentsByDayBO dayBO = new AppointmentsByDayBO(String.valueOf(objArray[0]),(Long)objArray[1]);
+            list.add(dayBO);
+        }
+
+        return list;
     }
 
     private org.springframework.data.domain.Example<AppointmentsDO> convertExampleJPA(AppointmentsQuery query) {

@@ -31,9 +31,8 @@ public class PatientsController {
 	/**
 	 * Pagination
 	 */
-	@RequestMapping("/findPage")
-	@ResponseBody
-	public ResultModel findPageInfo(@RequestBody PatientsQuery query){
+	@GetMapping("/findPage")
+	public ResultModel findPageInfo(PatientsQuery query){
 		PageListResult<PatientsBO> pagerResult = patientsService.findPage(query);
 
 		List<PatientsDTO> PatientsDTOS = PatientsConvert.toDTOList(pagerResult.getList());

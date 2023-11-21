@@ -3,6 +3,7 @@ package com.capstone.healthcare.service;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.PrescriptionsQuery;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
+import com.capstone.healthcare.service.bo.PrescriptionsByYearBO;
 
 import java.util.List;
 /**
@@ -15,14 +16,12 @@ import java.util.List;
 public interface PrescriptionsService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(PrescriptionsBO prescriptionsBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */
@@ -37,4 +36,9 @@ public interface PrescriptionsService {
     List<PrescriptionsBO> findList(PrescriptionsQuery query);
 
     PageListResult<PrescriptionsBO> findPage(PrescriptionsQuery query);
+
+
+
+    List<PrescriptionsByYearBO> findGroupYear();
+
 }

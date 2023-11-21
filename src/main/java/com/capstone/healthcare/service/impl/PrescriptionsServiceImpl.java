@@ -3,13 +3,17 @@ package com.capstone.healthcare.service.impl;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.PrescriptionsDO;
 import com.capstone.healthcare.dal.jpa.PrescriptionsJPA;
+import com.capstone.healthcare.dal.jpa.PrescriptionsJPA2;
 import com.capstone.healthcare.query.PrescriptionsQuery;
 import com.capstone.healthcare.service.PrescriptionsService;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
+import com.capstone.healthcare.service.bo.PrescriptionsByYearBO;
 import com.capstone.healthcare.service.convert.PrescriptionsConvert;
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -24,6 +28,8 @@ public class PrescriptionsServiceImpl implements PrescriptionsService {
 
     @Resource
     private PrescriptionsJPA prescriptionsJPA;
+    @Resource
+    private PrescriptionsJPA2 prescriptionsJPA2;
 
 
     @Override
@@ -58,18 +64,22 @@ public class PrescriptionsServiceImpl implements PrescriptionsService {
         return pageListResult;
     }
 
-    /**
-     * @param prescriptionsQuery
-     * @return
-     */
-//    private Example convertExample(PrescriptionsQuery prescriptionsQuery) {
-//        Example example = new Example(PrescriptionsDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(prescriptionsQuery.getPrescriptionId())) {
-//            criteria.andEqualTo("prescriptionId", prescriptionsQuery.getPrescriptionId());
-//        }
-//        return example;
-//    }
+    @Override
+    public List<PrescriptionsByYearBO> findGroupYear() {
+        List<PrescriptionsByYearBO> list = Lists.newArrayList();
+        List<Object[]> objects = prescriptionsJPA2.groupByYear();
+        if(CollectionUtils.isEmpty(objects)){
+            return list;
+        }
+
+        for(Object[] objArry : objects){
+            PrescriptionsByYearBO yearBO = new PrescriptionsByYearBO(String.valueOf(objArry[0]),(Long) objArry[1]);
+            list.add(yearBO);
+
+        }
+        return list;
+    }
+
     private Example<PrescriptionsDO> convertExampleJPA(PrescriptionsQuery query) {
         PrescriptionsDO probe = new PrescriptionsDO();
         if (!ObjectUtils.isEmpty(query.getPrescriptionId())) {

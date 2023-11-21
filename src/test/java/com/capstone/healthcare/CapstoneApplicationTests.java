@@ -15,12 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest(classes = CapstoneApplication.class)
-class CapstoneApplicationTests {
+public class CapstoneApplicationTests {
 
 	@Resource
 	private AllergiesService allergiesService;
 	@Resource
 	private AllergiesHandler allergiesHandler;
+	@Resource
+	private PrescriptionsJPA2 prescriptionsJPA2;
 	@Test
 	void contextLoads() {
 		AllergiesQuery query = new AllergiesQuery();
@@ -45,8 +47,7 @@ class CapstoneApplicationTests {
 		allergiesHandler.update(bo);
 		System.out.println("Done!");
 	}
-	@Resource
-	private PrescriptionsJPA2 prescriptionsJPA2;
+
 	@Test
 	void group() {
 		AllergiesBO bo = new AllergiesBO();
@@ -55,6 +56,11 @@ class CapstoneApplicationTests {
 		List<PrescriptionsDO> allByOrderByPrescriptionId = prescriptionsJPA2.findAllByOrderByPrescriptionId();
 		System.out.println("Done!{}"+Constants.GSON.toJson(allByOrderByPrescriptionId));
 		List<Object[]> allByOrderByPrescriptionId2= prescriptionsJPA2.groupByYear();
+		for(Object[] obj : allByOrderByPrescriptionId2){
+			System.out.println(obj[0]+":" + obj[1]);
+		}
 		System.out.println("Done!{}"+Constants.GSON.toJson(allByOrderByPrescriptionId2));
 	}
+
+
 }

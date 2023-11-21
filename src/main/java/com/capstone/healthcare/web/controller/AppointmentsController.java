@@ -5,6 +5,7 @@ import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
+import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.List;
  * @email xw
  * @date 2023-10-16 14:42:09
  */
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentsController {
@@ -31,15 +32,25 @@ public class AppointmentsController {
 	/**
 	 * Pagination
 	 */
-	@RequestMapping("/findPage")
-	@ResponseBody
-	public ResultModel findPageInfo(@RequestBody AppointmentsQuery query){
+	@GetMapping("/findPage")
+	public ResultModel findPageInfo(AppointmentsQuery query){
 		PageListResult<AppointmentsBO> pagerResult = appointmentsService.findPage(query);
 
 		List<AppointmentsDTO> AppointmentsDTOS = AppointmentsConvert.toDTOList(pagerResult.getList());
 		PageListResult<AppointmentsDTO> page = new PageListResult<>(AppointmentsDTOS,pagerResult.getPageNum(),pagerResult.getPageSize(),pagerResult.getTotal());
 		return new ResultModel(page);
 	}
+
+
+	/**
+	 * Pagination
+	 */
+	@GetMapping("/findGroupDays")
+	public ResultModel findGroupDays(AppointmentsQuery query){
+		List<AppointmentsByDayBO> pagerResult = appointmentsService.findGroupDays();
+		return new ResultModel(pagerResult);
+	}
+
 
 	/**
 	 * Adding new data

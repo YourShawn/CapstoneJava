@@ -8,10 +8,7 @@ import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
 import com.capstone.healthcare.web.dto.DoctorsDTO;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ import java.util.List;
  * @date 2023-10-16 14:42:09
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/doctors")
 public class DoctorsController {
 	@Resource
@@ -33,9 +31,8 @@ public class DoctorsController {
 	/**
 	 * Pagination
 	 */
-	@RequestMapping("/findPage")
-	@ResponseBody
-	public ResultModel findPageInfo(@RequestBody DoctorsQuery query){
+	@GetMapping("/findPage")
+	public ResultModel findPageInfo(DoctorsQuery query){
 		PageListResult<DoctorsBO> pagerResult = doctorsHandler.findPage(query);
 
 		List<DoctorsDTO> DoctorsDTOS = DoctorsConvert.toDTOList(pagerResult.getList());
