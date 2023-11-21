@@ -15,6 +15,7 @@ import com.capstone.healthcare.service.convert.PatientsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -65,6 +66,12 @@ public class PatientsServiceImpl implements PatientsService {
         return pageListResult;
     }
 
+    @Override
+    public List<PatientsBO> findList(List<Integer> query) {
+        List<PatientsDO> byPatientIds = patientsJPA.findByPatientIds(query);
+        return PatientsConvert.toBOList(byPatientIds);
+    }
+
     /**
         *
         * @param patientsQuery
@@ -85,7 +92,6 @@ public class PatientsServiceImpl implements PatientsService {
         if (!ObjectUtils.isEmpty(query.getPatientId())) {
             probe.setPatientId(query.getPatientId());
         }
-
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
                 .withIgnoreCase();

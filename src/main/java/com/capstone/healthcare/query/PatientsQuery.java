@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Object for querying
@@ -21,6 +22,7 @@ public class PatientsQuery extends PageInfo{
 
 	/***/
 	private Integer patientId;
+	private List<Integer> patientIdList;
 	/***/
 	private String firstName;
 	/***/

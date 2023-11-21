@@ -18,8 +18,12 @@ public class AppointmentsByDayBO {
 	/***/
 	private Long count;
 
-	public AppointmentsByDayBO(String day, Long count) {
-		this.day = day;
+	public AppointmentsByDayBO(String timeStr, Long count) {
+		String replace = timeStr.replace(",", "");
+		String year = replace.substring(0, 4);
+		String month = replace.substring(4, 6);
+		String day = replace.substring(6, 8);
+		this.day = year + "-" + month + "-"+ day;
 		this.count = count;
 	}
 }

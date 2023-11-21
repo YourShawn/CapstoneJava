@@ -1,11 +1,13 @@
 package com.capstone.healthcare.dal.dataobject;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -41,4 +43,9 @@ public class PatientsDO {
 	private String haveAllergies;
 	/***/
 	private Integer assignedDoctor;
+
+
+
+	@Transient
+	private List<Integer> patientIdList;
 }

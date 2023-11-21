@@ -19,6 +19,7 @@ public class AppointmentsDTO {
 	private Integer appointmentId;
 	/***/
 	private Integer patientId;
+	private String patientName;
 	/***/
 	private Integer doctorId;
 	/***/

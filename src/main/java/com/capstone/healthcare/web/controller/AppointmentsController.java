@@ -2,15 +2,20 @@ package com.capstone.healthcare.web.controller;
 
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.handle.AppointmentHandler;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
+import com.google.common.collect.Lists;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +31,8 @@ import java.util.List;
 public class AppointmentsController {
 	@Autowired
 	private AppointmentsService appointmentsService;
+	@Resource
+	private AppointmentHandler appointmentHandler;
 
 
 	
@@ -34,7 +41,7 @@ public class AppointmentsController {
 	 */
 	@GetMapping("/findPage")
 	public ResultModel findPageInfo(AppointmentsQuery query){
-		PageListResult<AppointmentsBO> pagerResult = appointmentsService.findPage(query);
+		PageListResult<AppointmentsBO> pagerResult = appointmentHandler.findPage(query);
 
 		List<AppointmentsDTO> AppointmentsDTOS = AppointmentsConvert.toDTOList(pagerResult.getList());
 		PageListResult<AppointmentsDTO> page = new PageListResult<>(AppointmentsDTOS,pagerResult.getPageNum(),pagerResult.getPageSize(),pagerResult.getTotal());
@@ -48,6 +55,9 @@ public class AppointmentsController {
 	@GetMapping("/findGroupDays")
 	public ResultModel findGroupDays(AppointmentsQuery query){
 		List<AppointmentsByDayBO> pagerResult = appointmentsService.findGroupDays();
+		pagerResult.sort((item1,item2)->{
+			return item1.getDay().compareTo(item2.getDay());
+		});
 		return new ResultModel(pagerResult);
 	}
 

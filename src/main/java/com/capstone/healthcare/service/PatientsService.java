@@ -38,4 +38,11 @@ public interface PatientsService {
 
     PageListResult<PatientsBO> findPage(PatientsQuery query);
 
+    /**
+     * query
+     * @param query
+     * @return
+     */
+    List<PatientsBO> findList(List<Integer> query);
+
 }
