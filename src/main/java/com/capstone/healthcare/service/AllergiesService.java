@@ -15,14 +15,12 @@ import java.util.List;
 public interface AllergiesService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(AllergiesBO allergiesBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */

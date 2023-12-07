@@ -1,14 +1,10 @@
 package com.capstone.healthcare.service.impl;
 
-import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.dal.dataobject.UsersDO;
 import com.capstone.healthcare.dal.jpa.UsersJPA;
-import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.query.UsersQuery;
 import com.capstone.healthcare.service.RegistrationService;
-import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.UsersBO;
-import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.capstone.healthcare.service.convert.UsersConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -50,6 +46,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         UsersDO probe = new UsersDO();
         if (!ObjectUtils.isEmpty(query.getUserId())) {
             probe.setUserId(query.getUserId());
+        }
+        if (!ObjectUtils.isEmpty(query.getEmailAddress())) {
+            probe.setEmailAddress(query.getEmailAddress());
+        }
+        if (!ObjectUtils.isEmpty(query.getRole())) {
+            probe.setRole(query.getRole());
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()

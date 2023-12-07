@@ -17,5 +17,7 @@ public class LoginDTO {
 	private String username;
 	/**Public key*/
 	private String password;
+	private String role;
+
 
 }

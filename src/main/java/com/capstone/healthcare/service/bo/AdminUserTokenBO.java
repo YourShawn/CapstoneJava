@@ -16,5 +16,8 @@ public class AdminUserTokenBO {
 	private Long id;
 	/**user name*/
 	private String userName;
-
+	/***/
+	private String phoneNumber;
+	/***/
+	private String role;
 }

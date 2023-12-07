@@ -16,52 +16,22 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/login")
+@RequestMapping("/")
 public class LoginController {
 	@Resource
 	private LoginHandler loginHandler;
 
-
-
 	/**
 	 * Adding new data
 	 */
-	@RequestMapping("/adminLogin")
+	@RequestMapping("/login")
 	@ResponseBody
 	public ResultModel adminLogin(@RequestBody LoginDTO loginDTO){
 		LoginBO bo = new LoginBO();
 		bo.setUsername(loginDTO.getUsername());
 		bo.setPassword(loginDTO.getPassword());
-		String login = loginHandler.adminLogin(bo);
-		return new ResultModel(login);
-	}
-
-
-
-	/**
-	 * Adding new data
-	 */
-	@RequestMapping("/doctorLogin")
-	@ResponseBody
-	public ResultModel doctorLogin(@RequestBody LoginDTO loginDTO){
-		LoginBO bo = new LoginBO();
-		bo.setUsername(loginDTO.getUsername());
-		bo.setPassword(loginDTO.getPassword());
-		String login = loginHandler.doctorLogin(bo);
-		return new ResultModel(login);
-	}
-
-
-	/**
-	 * Adding new data
-	 */
-	@RequestMapping("/patientLogin")
-	@ResponseBody
-	public ResultModel patientLogin(@RequestBody LoginDTO loginDTO){
-		LoginBO bo = new LoginBO();
-		bo.setUsername(loginDTO.getUsername());
-		bo.setPassword(loginDTO.getPassword());
-		String login = loginHandler.patientLogin(bo);
+		bo.setRole(loginDTO.getRole());
+		String login = loginHandler.userLogin(bo);
 		return new ResultModel(login);
 	}
 

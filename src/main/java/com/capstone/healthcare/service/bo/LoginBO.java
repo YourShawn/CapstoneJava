@@ -17,5 +17,6 @@ public class LoginBO {
 	private String username;
 	/**Public key*/
 	private String password;
+	private String role;
 
 }

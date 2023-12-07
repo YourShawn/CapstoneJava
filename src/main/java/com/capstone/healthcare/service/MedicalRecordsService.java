@@ -15,14 +15,12 @@ import java.util.List;
 public interface MedicalRecordsService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(MedicalRecordsBO medicalRecordsBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */

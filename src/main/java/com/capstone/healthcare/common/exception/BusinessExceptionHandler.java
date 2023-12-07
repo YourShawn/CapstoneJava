@@ -30,7 +30,7 @@ public class BusinessExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public ResultModel messageExceptionHandler(RuntimeException ex) {
-        log.info("统一异常处理：{}", ex);
+        log.info("Execute the exception：{}", ex);
         ResultModel result = new ResultModel();
 
         if (ex instanceof BusinessException) {
@@ -48,7 +48,7 @@ public class BusinessExceptionHandler {
         result.setCode(ErrorCode.UNKNOW_ERROR.getCode());
         result.setMessage(ErrorCode.UNKNOW_ERROR.getMessage());
         result.setData("FAILED");
-        log.info("统一异常处理返回：{}", Constants.GSON.toJson(result));
+        log.info("Execute the exception Return：{}", Constants.GSON.toJson(result));
         return result;
     }
 }

@@ -15,14 +15,12 @@ import java.util.List;
 public interface LaboratoryTestsService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(LaboratoryTestsBO laboratoryTestsBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */

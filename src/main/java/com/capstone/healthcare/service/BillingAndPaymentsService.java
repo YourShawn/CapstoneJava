@@ -15,14 +15,12 @@ import java.util.List;
 public interface BillingAndPaymentsService {
 
     /**
-	 * 添加数据
 	 * @param
 	 * @return
 	 */
     void add(BillingAndPaymentsBO billingAndPaymentsBO);
 
     /**
-     * 修改数据
      * @param
      * @return
      */
