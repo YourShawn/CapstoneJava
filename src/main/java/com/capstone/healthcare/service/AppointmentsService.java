@@ -4,6 +4,7 @@ import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 
 import java.util.List;
 /**
@@ -33,6 +34,8 @@ public interface AppointmentsService {
      * @return
      */
     List<AppointmentsBO> findList(AppointmentsQuery query);
+
+    List<AppointmentsByPatientNameBO> findListWithPatientName(AppointmentsQuery query);
     PageListResult<AppointmentsBO> findPage(AppointmentsQuery query);
 
 

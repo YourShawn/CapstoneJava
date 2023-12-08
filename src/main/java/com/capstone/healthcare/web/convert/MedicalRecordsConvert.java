@@ -24,7 +24,7 @@ public class MedicalRecordsConvert {
         }
 
 		MedicalRecordsBO medicalRecordsBO = new MedicalRecordsBO();
-        BeanUtils.copyProperties(medicalRecordsBO, medicalRecordsDTO);
+        BeanUtils.copyProperties(medicalRecordsDTO,medicalRecordsBO);
 		return medicalRecordsBO;
 	}
 
@@ -34,7 +34,7 @@ public class MedicalRecordsConvert {
         }
 
 		MedicalRecordsDTO medicalRecordsDTO = new MedicalRecordsDTO();
-        BeanUtils.copyProperties(medicalRecordsDTO, medicalRecordsBO);
+        BeanUtils.copyProperties(medicalRecordsBO, medicalRecordsDTO);
 		return medicalRecordsDTO;
 	}
 

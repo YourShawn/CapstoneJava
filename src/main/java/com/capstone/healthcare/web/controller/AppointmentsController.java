@@ -9,17 +9,16 @@ import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 import com.capstone.healthcare.service.bo.PatientsBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
-import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -96,8 +95,8 @@ public class AppointmentsController {
 	@RequestMapping("/getAppointmentsList")
 	@ResponseBody
 	public ResultModel getAppointmentList(@RequestBody AppointmentsQuery appointmentsQuery) {
-		List<AppointmentsDTO> appointmentsDTOList =
-				AppointmentsConvert.toDTOList(appointmentsService.findList(appointmentsQuery));
+		List<AppointmentsByPatientNameBO> appointmentsDTOList =
+				appointmentsService.findListWithPatientName(appointmentsQuery);
 		return new ResultModel(appointmentsDTOList);
 	}
 

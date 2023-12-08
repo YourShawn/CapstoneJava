@@ -35,4 +35,6 @@ public interface MedicationsService {
     List<MedicationsBO> findList(MedicationsQuery query);
 
     PageListResult<MedicationsBO> findPage(MedicationsQuery query);
+
+    void addBulk(List<MedicationsBO> medicationsBOList);
 }

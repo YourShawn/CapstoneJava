@@ -78,6 +78,16 @@ public class PatientsController {
 		return  new ResultModel(patientsList);
 	}
 
+	/**
+	 * get patient data
+	 */
+	@RequestMapping("/getPatientDetail")
+	@ResponseBody
+	public ResultModel getPatientDetail(@RequestBody PatientsQuery query){
+		List<PatientsBO> patientDtl = patientsService.findList(query);
+		List<PatientsDTO> patientsList = PatientsConvert.toDTOList(patientDtl);
+		return  new ResultModel(patientsList);
+	}
 
 	/**
 	 * find info
