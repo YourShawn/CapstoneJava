@@ -2,6 +2,7 @@ package com.capstone.healthcare.web.controller;
 
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.handle.LoginHandler;
+import com.capstone.healthcare.service.bo.AdminUserTokenBO;
 import com.capstone.healthcare.service.bo.LoginBO;
 import com.capstone.healthcare.web.dto.LoginDTO;
 import jakarta.annotation.Resource;
@@ -26,7 +27,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/login")
 	@ResponseBody
-	public ResultModel adminLogin(@RequestBody LoginDTO loginDTO){
+	public ResultModel login(@RequestBody LoginDTO loginDTO){
 		LoginBO bo = new LoginBO();
 		bo.setUsername(loginDTO.getUsername());
 		bo.setPassword(loginDTO.getPassword());
@@ -35,4 +36,13 @@ public class LoginController {
 		return new ResultModel(login);
 	}
 
+
+	/**
+	 * Adding new data
+	 */
+	@GetMapping("/getInfo")
+	public ResultModel getInfo(@RequestHeader(name = "loginToken") String token){
+		AdminUserTokenBO info = loginHandler.getInfo(token);
+		return new ResultModel(info);
+	}
 }

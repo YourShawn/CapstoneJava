@@ -27,8 +27,6 @@ import org.springframework.util.ObjectUtils;
 @Component
 public class LoginHandler {
 
-	@Resource
-	private DoctorsService doctorsService;
     @Resource
     private UserHandler userHandler;
 
@@ -65,6 +63,11 @@ public class LoginHandler {
         TokenConstants.TOKEN_HASH_MAP.put(TokenKeyUtil.adminLoginToken2Info(token), Constants.GSON.toJson(adminUserTokenBO));
         TokenConstants.TOKEN_HASH_MAP.put(TokenKeyUtil.adminLoginId2Token(adminUserTokenBO.getId()), token);
         return token;
+    }
+
+    public AdminUserTokenBO getInfo(String token){
+        String s = TokenConstants.TOKEN_HASH_MAP.get(token);
+        return Constants.GSON.fromJson(s,AdminUserTokenBO.class);
     }
 
 }

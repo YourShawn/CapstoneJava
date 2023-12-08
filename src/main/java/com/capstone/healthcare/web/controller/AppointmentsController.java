@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -93,5 +94,20 @@ public class AppointmentsController {
 		List<AppointmentsDTO> appointmentsDTOList =
 				AppointmentsConvert.toDTOList(appointmentsService.findList(appointmentsQuery));
 		return new ResultModel(appointmentsDTOList);
+	}
+
+
+	/**
+	 *  get appointment list
+	 */
+	@GetMapping("/getInfo")
+	public ResultModel getInfo( AppointmentsQuery appointmentsQuery) {
+		if(ObjectUtils.isEmpty(appointmentsQuery.getAppointmentId())){
+			return new ResultModel();
+		}
+		List<AppointmentsBO> list = appointmentsService.findList(appointmentsQuery);
+		AppointmentsDTO appointmentsDTO =
+				AppointmentsConvert.toDTO(list.get(0));
+		return new ResultModel(appointmentsDTO);
 	}
 }

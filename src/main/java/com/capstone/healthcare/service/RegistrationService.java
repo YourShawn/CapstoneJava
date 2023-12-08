@@ -1,7 +1,7 @@
 package com.capstone.healthcare.service;
 
+import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.UsersQuery;
-import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.UsersBO;
 
 import java.util.List;
@@ -25,5 +25,6 @@ public interface RegistrationService {
     void update(UsersBO usersBO);
 
     public List<UsersBO> findList(UsersQuery query);
+    PageListResult<UsersBO> findPage(UsersQuery query);
 
 }

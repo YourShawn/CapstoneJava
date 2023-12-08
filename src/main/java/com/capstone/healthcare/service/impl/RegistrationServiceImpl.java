@@ -1,14 +1,17 @@
 package com.capstone.healthcare.service.impl;
 
+import com.capstone.healthcare.common.modules.PageListResult;
+import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.dal.dataobject.UsersDO;
 import com.capstone.healthcare.dal.jpa.UsersJPA;
 import com.capstone.healthcare.query.UsersQuery;
 import com.capstone.healthcare.service.RegistrationService;
+import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.UsersBO;
+import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.capstone.healthcare.service.convert.UsersConvert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -39,7 +42,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         return UsersConvert.toBOList(listByQuery);
     }
 
-
+    @Override
+    public PageListResult<UsersBO> findPage(UsersQuery pagerCondition) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"userId");
+        PageRequest pageRequest = PageRequest.of(pagerCondition.getPageNum(), pagerCondition.getPageSize(),sort);
+        Page<UsersDO> page = usersJPA.findAll(this.convertExampleJPA(pagerCondition), pageRequest);
+        //Setting the set of result
+        PageListResult<UsersBO> pageListResult = new PageListResult(UsersConvert.toBOList(page.toList()));
+        pageListResult.setTotal(page.getTotalElements());
+        pageListResult.setPageNum(pagerCondition.getPageNum());
+        pageListResult.setPageSize(pagerCondition.getPageSize());
+        return pageListResult;
+    }
 
 
     private Example<UsersDO> convertExampleJPA(UsersQuery query) {
