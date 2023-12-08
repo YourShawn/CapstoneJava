@@ -8,6 +8,8 @@ import com.capstone.healthcare.service.bo.PatientsBO;
 import com.capstone.healthcare.web.convert.PatientsConvert;
 import com.capstone.healthcare.web.dto.PatientsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -84,4 +86,20 @@ public class PatientsController {
 		List<PatientsDTO> patientsList = PatientsConvert.toDTOList(patientDtl);
 		return  new ResultModel(patientsList);
 	}
+
+	/**
+	 * find info
+	 */
+	@GetMapping("/getInfo")
+	public ResultModel getInfo( PatientsQuery query){
+		if(ObjectUtils.isEmpty(query.getPatientId())){
+			return new ResultModel();
+		}
+		List<PatientsBO> list = patientsService.findList(query);
+		if(CollectionUtils.isEmpty(list)){
+			return new ResultModel();
+		}
+		return new ResultModel(list.get(0));
+	}
+
 }
