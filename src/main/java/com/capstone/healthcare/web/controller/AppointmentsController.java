@@ -3,10 +3,13 @@ package com.capstone.healthcare.web.controller;
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.handle.AppointmentHandler;
+import com.capstone.healthcare.handle.PatientHandler;
 import com.capstone.healthcare.query.AppointmentsQuery;
+import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
+import com.capstone.healthcare.service.bo.PatientsBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import com.google.common.collect.Lists;
@@ -34,6 +37,8 @@ public class AppointmentsController {
 	private AppointmentsService appointmentsService;
 	@Resource
 	private AppointmentHandler appointmentHandler;
+	@Resource
+	private PatientHandler patientHandler;
 
 
 	
@@ -106,8 +111,15 @@ public class AppointmentsController {
 			return new ResultModel();
 		}
 		List<AppointmentsBO> list = appointmentsService.findList(appointmentsQuery);
+		if(CollectionUtils.isEmpty(list)){
+			return new ResultModel();
+		}
+		PatientsQuery query = new PatientsQuery();
+		query.setPatientId(list.get(0).getPatientId());
+		List<PatientsBO> list1 = patientHandler.findList(query);
 		AppointmentsDTO appointmentsDTO =
 				AppointmentsConvert.toDTO(list.get(0));
+		appointmentsDTO.setPatientName(list1.get(0).getFirstName() + " " + list1.get(0).getLastName());
 		return new ResultModel(appointmentsDTO);
 	}
 }

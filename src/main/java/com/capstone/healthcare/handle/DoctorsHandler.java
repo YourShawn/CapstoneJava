@@ -9,6 +9,8 @@ import com.capstone.healthcare.service.bo.DoctorsBO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Doctors functionalities
  *
@@ -37,7 +39,10 @@ public class DoctorsHandler{
         return pagerResult;
     }
 
-
+    public List<DoctorsBO> findList(DoctorsQuery query){
+        List<DoctorsBO> list = doctorsService.findList(query);
+        return list;
+    }
     public Long count(){
         DoctorsQuery query = new DoctorsQuery();
         query.setPageInfo(0,1);

@@ -8,6 +8,8 @@ import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
 import com.capstone.healthcare.web.dto.DoctorsDTO;
 import jakarta.annotation.Resource;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,6 +62,22 @@ public class DoctorsController {
 		DoctorsBO doctorsBO = DoctorsConvert.toBO(doctorsDTO);
 		doctorsHandler.update(doctorsBO);
         return new ResultModel();
+	}
+
+
+	/**
+	 * find info
+	 */
+	@GetMapping("/getInfo")
+	public ResultModel getInfo( DoctorsQuery query){
+		if(ObjectUtils.isEmpty(query.getDoctorId())){
+			return new ResultModel();
+		}
+		List<DoctorsBO> list = doctorsHandler.findList(query);
+		if(CollectionUtils.isEmpty(list)){
+			return new ResultModel();
+		}
+		return new ResultModel(list.get(0));
 	}
 
 }

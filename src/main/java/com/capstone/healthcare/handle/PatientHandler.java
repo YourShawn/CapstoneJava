@@ -54,5 +54,12 @@ public class PatientHandler {
         }
         return list;
     }
+    public List<PatientsBO> findList(PatientsQuery query){
+        List<PatientsBO> list = patientsService.findList(query);
+        if(ObjectUtils.isEmpty(list) || CollectionUtils.isEmpty(list)){
+            return Lists.newArrayList();
+        }
+        return list;
+    }
 
 }
