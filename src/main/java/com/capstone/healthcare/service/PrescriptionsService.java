@@ -2,6 +2,7 @@ package com.capstone.healthcare.service;
 
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.PrescriptionsQuery;
+import com.capstone.healthcare.service.bo.PrescriptionBODetail;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
 import com.capstone.healthcare.service.bo.PrescriptionsByYearBO;
 
@@ -19,7 +20,7 @@ public interface PrescriptionsService {
 	 * @param
 	 * @return
 	 */
-    void add(PrescriptionsBO prescriptionsBO);
+    Integer add(PrescriptionsBO prescriptionsBO);
 
     /**
      * @param
@@ -41,4 +42,5 @@ public interface PrescriptionsService {
 
     List<PrescriptionsByYearBO> findGroupYear();
 
+    List<PrescriptionBODetail> getPrescriptionDetail(PrescriptionsQuery prescriptionsQuery);
 }

@@ -24,7 +24,7 @@ public class MedicationsConvert {
         }
 
 		MedicationsBO medicationsBO = new MedicationsBO();
-        BeanUtils.copyProperties(medicationsBO, medicationsDTO);
+        BeanUtils.copyProperties(medicationsDTO, medicationsBO);
 		return medicationsBO;
 	}
 
@@ -34,7 +34,7 @@ public class MedicationsConvert {
         }
 
 		MedicationsDTO medicationsDTO = new MedicationsDTO();
-        BeanUtils.copyProperties(medicationsDTO, medicationsBO);
+        BeanUtils.copyProperties(medicationsBO, medicationsDTO);
 		return medicationsDTO;
 	}
 

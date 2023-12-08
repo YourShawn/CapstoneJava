@@ -2,6 +2,7 @@ package com.capstone.healthcare.service.convert;
 
 import com.capstone.healthcare.dal.dataobject.AppointmentsDO;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -71,5 +72,7 @@ public class AppointmentsConvert {
 		}
 		return doList;
 	}
+
+
 
 }
