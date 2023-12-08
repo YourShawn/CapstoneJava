@@ -53,7 +53,7 @@ public class MedicationsController {
 		medicationsService.add(medicationsBO);
         return new ResultModel();
 	}
-	
+
 	/**
 	 * update
 	 */
@@ -64,5 +64,21 @@ public class MedicationsController {
 		medicationsService.update(medicationsBO);
         return new ResultModel();
 	}
+
+	@RequestMapping("/addMedications")
+	@ResponseBody
+	public ResultModel add(@RequestBody List<MedicationsDTO> medicationsDTOList) {
+		System.out.println("medicationsDTOList:==>"+medicationsDTOList);
+		// Convert the list of DTOs to a list of BOs
+		List<MedicationsBO> medicationsBOList = MedicationsConvert.toBOList(medicationsDTOList);
+
+		// Call the service method for bulk insert
+		medicationsService.addBulk(medicationsBOList);
+
+		return new ResultModel();
+	}
+
+
+
 
 }

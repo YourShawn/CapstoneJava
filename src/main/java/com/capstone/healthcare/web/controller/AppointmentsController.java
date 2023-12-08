@@ -7,6 +7,7 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.dto.AppointmentsDTO;
 import com.google.common.collect.Lists;
@@ -91,8 +92,8 @@ public class AppointmentsController {
 	@RequestMapping("/getAppointmentsList")
 	@ResponseBody
 	public ResultModel getAppointmentList(@RequestBody AppointmentsQuery appointmentsQuery) {
-		List<AppointmentsDTO> appointmentsDTOList =
-				AppointmentsConvert.toDTOList(appointmentsService.findList(appointmentsQuery));
+		List<AppointmentsByPatientNameBO> appointmentsDTOList =
+				appointmentsService.findListWithPatientName(appointmentsQuery);
 		return new ResultModel(appointmentsDTOList);
 	}
 

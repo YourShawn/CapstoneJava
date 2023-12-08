@@ -29,6 +29,7 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService {
     @Override
     public void add(MedicalRecordsBO medicalRecordsBO) {
         medicalRecordsBO.setRecordId(null);
+
         MedicalRecordsDO medicalRecordsDO = MedicalRecordsConvert.toDO(medicalRecordsBO);
         medicalRecordsJPA.save(medicalRecordsDO);
     }
@@ -63,7 +64,9 @@ public class MedicalRecordsServiceImpl implements MedicalRecordsService {
         if(!ObjectUtils.isEmpty(query.getRecordId())){
             probe.setRecordId(query.getRecordId());
         }
-
+        if(!ObjectUtils.isEmpty(query.getPatientId())){
+            probe.setPatientId(query.getPatientId());
+        }
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
                 .withIgnoreCase();

@@ -10,6 +10,7 @@ import com.capstone.healthcare.service.convert.MedicationsConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -74,6 +75,12 @@ public class MedicationsServiceImpl implements MedicationsService {
         Example<MedicationsDO> example = Example.of(probe, matcher);
         return example;
     }
-
+    @Override
+    @Transactional
+    public void addBulk(List<MedicationsBO> medicationsBOList) {
+        // Convert BOs to DOs and save them using JpaRepository's saveAll
+        List<MedicationsDO> medicationsDOList = MedicationsConvert.toDOList(medicationsBOList);
+        medicationsJPA.saveAll(medicationsDOList);
+    }
 
 }

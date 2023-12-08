@@ -3,14 +3,19 @@ package com.capstone.healthcare.web.controller;
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.handle.PrescriptionHandler;
+import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.query.PrescriptionsQuery;
 import com.capstone.healthcare.service.PrescriptionsService;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
+import com.capstone.healthcare.service.bo.PrescriptionBODetail;
 import com.capstone.healthcare.service.bo.PrescriptionsBO;
 import com.capstone.healthcare.service.bo.PrescriptionsByYearBO;
 import com.capstone.healthcare.web.convert.PrescriptionsConvert;
 import com.iaminca.entity.dto.PrescriptionsDTO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,8 +68,10 @@ public class PrescriptionsController {
 	@ResponseBody
 	public ResultModel add(@RequestBody PrescriptionsDTO prescriptionsDTO){
 		PrescriptionsBO prescriptionsBO = PrescriptionsConvert.toBO(prescriptionsDTO);
-		prescriptionsService.add(prescriptionsBO);
-        return new ResultModel();
+		Integer generatedPrescriptionId = prescriptionsService.add(prescriptionsBO);
+		ResultModel resultModel = new ResultModel();
+		resultModel.setData(generatedPrescriptionId);
+        return resultModel;
 	}
 	
 	/**
@@ -78,4 +85,11 @@ public class PrescriptionsController {
         return new ResultModel();
 	}
 
+	@RequestMapping("/getPrescriptionDetail")
+	@ResponseBody
+	public ResultModel getPrescriptionDetail(@RequestBody PrescriptionsQuery prescriptionsQuery) {
+		List<PrescriptionBODetail> prescriptionLst =
+				prescriptionsService.getPrescriptionDetail(prescriptionsQuery);
+		return new ResultModel(prescriptionLst);
+	}
 }

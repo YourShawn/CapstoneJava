@@ -3,16 +3,19 @@ package com.capstone.healthcare.web.controller;
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.MedicalRecordsQuery;
+import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.MedicalRecordsService;
 import com.capstone.healthcare.service.bo.MedicalRecordsBO;
+import com.capstone.healthcare.service.bo.PatientsBO;
 import com.capstone.healthcare.web.convert.MedicalRecordsConvert;
+import com.capstone.healthcare.web.convert.PatientsConvert;
+import com.capstone.healthcare.web.dto.PatientsDTO;
 import com.iaminca.entity.dto.MedicalRecordsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,7 +25,10 @@ import java.util.List;
  * @email xw
  * @date 2023-10-16 14:42:09
  */
+@CrossOrigin(origins = "*")
 @RestController
+
+
 @RequestMapping("/MedicalRecords")
 public class MedicalRecordsController {
 	@Autowired
@@ -63,6 +69,19 @@ public class MedicalRecordsController {
 		MedicalRecordsBO medicalRecordsBO = MedicalRecordsConvert.toBO(medicalRecordsDTO);
 		medicalRecordsService.update(medicalRecordsBO);
         return new ResultModel();
+	}
+
+	/**
+	 * get patient past medical data
+	 */
+	@RequestMapping("/getPatientsMedicalRecords")
+	@ResponseBody
+	public ResultModel getPatientDetail(@RequestBody MedicalRecordsQuery query){
+		List<MedicalRecordsBO> medicalRecordsDtl = medicalRecordsService.findList(query);
+		Comparator<MedicalRecordsBO> dateComparator = Comparator.comparing(MedicalRecordsBO::getDateOfVisit);
+		Collections.sort(medicalRecordsDtl, dateComparator.reversed());
+		List<MedicalRecordsDTO> medicalRecordsDTOList = MedicalRecordsConvert.toDTOList(medicalRecordsDtl);
+		return  new ResultModel(medicalRecordsDTOList);
 	}
 
 }

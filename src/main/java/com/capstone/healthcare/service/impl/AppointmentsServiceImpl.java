@@ -9,9 +9,9 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 import com.capstone.healthcare.service.convert.AppointmentsConvert;
 import com.google.common.collect.Lists;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,11 +87,31 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         return AppointmentsConvert.toBOList(listByQuery);
     }
 
-//    @Override
-//    public List<AppointmentsBO> findListWithPatientName(AppointmentsQuery query) {
-//        List<AppointmentsDO> listByQuery = appointmentsJPA.findAll(this.convertExampleJPA(query));
-//        return AppointmentsConvert.toBOListWithPatientName(listByQuery);
-//    }
+    @Override
+    public List<AppointmentsByPatientNameBO> findListWithPatientName(AppointmentsQuery query) {
+        ArrayList<AppointmentsByPatientNameBO> list = Lists.newArrayList();
+        int activeAppointments =1 ;
+        List<Object[]> listByQuery = appointmentsJPA2.getAppointmentsList(query.getDoctorId(),
+                activeAppointments);
+
+        if(CollectionUtils.isEmpty(listByQuery)){
+            return list;
+        }
+        for (Object[] objArray : listByQuery) {
+            AppointmentsByPatientNameBO patientNameBO = new AppointmentsByPatientNameBO(
+                    (Integer) objArray[0],        // appointmentId
+                    (String) objArray[1],         // patientName
+                    (Integer) objArray[2],         // doctorId
+                    (Date) objArray[3],            // appointmentDateTime
+                    (String) objArray[4],         // reasonForAppointment
+                    (String) objArray[5],         // status
+                    (Integer) objArray[6]          // isActive
+            );
+            list.add(patientNameBO);
+        }
+
+        return list;
+    }
 
     @Override
     public PageListResult<AppointmentsBO> findPage(AppointmentsQuery pagerCondition){
