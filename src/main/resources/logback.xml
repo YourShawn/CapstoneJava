@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod=" 5 seconds" debug="false">
+	<jmxConfigurator/>
+
+	<!--<property file="${cdiamond.file.path}"/>-->
+
+	<property name="LOG_PATH" value="logs/capstone-logger"/>
+	<property name="LOG_LEVEL" value="INFO"/>
+
+	<!--业务日志输出格式-->
+	<property name="SERVICE_OUTPUT_PATTERN"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{INNER_TRACE_ID}] %-5level %logger{56} - %msg%n" />
+
+	<!--SQL监控日志输出格式-->
+	<property name="SQL_OUTPUT_PATTERN"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{INNER_TRACE_ID}] %-5level %logger{56} - %msg%n" />
+
+	<!--日志文件保留最大天数-->
+	<property name="MAX_DAY" value="30"/>
+	<property name="MAX_SIZE" value="100mb" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!--<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>-->
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{56} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="AUTH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/capstone-logger.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/capstone-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="JOB" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/capstone-job.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/capstone-job-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/error.log</File>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/error-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/root.log</File>
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/root-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/sql.log</File>
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/sql-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SQL_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="OPERATION_USER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/operation-user.log</File>
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/operation-user-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${MAX_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>${MAX_DAY}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_OUTPUT_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{56} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="druid.sql.Statement" additivity="false">
+		<level value="${LOG_LEVEL}"/>
+		<appender-ref ref="SQL"/>
+		<appender-ref ref="ERROR"/>
+	</logger>
+
+<!--	<logger name="com.daimler.bss.driver.common.monitor.SqlMonitorManager" additivity="false">
+		<level value="${LOG_LEVEL}"/>
+		<appender-ref ref="SQL"/>
+		<appender-ref ref="ERROR"/>
+	</logger>-->
+
+	<logger name="com.github.pagehelper.PageHelper" additivity="false">
+		<level value="${LOG_LEVEL}"/>
+		<appender-ref ref="SQL"/>
+		<appender-ref ref="ERROR"/>
+	</logger>
+
+	<logger name="OPERATION_USER" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="OPERATION_USER"/>
+	</logger>
+
+	<logger name="JOB" additivity="false">
+		<level value="${LOG_LEVEL}"/>
+		<appender-ref ref="JOB"/>
+		<appender-ref ref="ERROR"/>
+	</logger>
+
+	<root level="${LOG_LEVEL}">
+		<level value="${LOG_LEVEL}"/>
+		<appender-ref ref="ROOT"/>
+		<appender-ref ref="AUTH"/>
+		<appender-ref ref="ERROR"/>
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>
