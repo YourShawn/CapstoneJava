@@ -4,9 +4,12 @@ import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.handle.DoctorsHandler;
 import com.capstone.healthcare.query.DoctorsQuery;
+import com.capstone.healthcare.query.UsersQuery;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
+import com.capstone.healthcare.web.convert.RegisterConvert;
 import com.capstone.healthcare.web.dto.DoctorsDTO;
+import com.capstone.healthcare.web.dto.UsersDTO;
 import jakarta.annotation.Resource;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -79,5 +82,20 @@ public class DoctorsController {
 		}
 		return new ResultModel(list.get(0));
 	}
+
+	@RequestMapping("/getDoctorId")
+	@ResponseBody
+	public ResultModel getDoctorId(@RequestBody DoctorsQuery doctorsQuery) {
+		List<DoctorsDTO> doctorsDTOList = DoctorsConvert.toDTOList(doctorsHandler.findList(doctorsQuery));
+
+		Integer doctorId = null;
+
+		if (!doctorsDTOList.isEmpty()) {
+			doctorId = doctorsDTOList.get(0).getDoctorId();
+		}
+
+		return new ResultModel(doctorId);
+	}
+
 
 }

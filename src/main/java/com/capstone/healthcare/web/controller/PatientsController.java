@@ -7,7 +7,9 @@ import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.service.PatientsService;
 import com.capstone.healthcare.service.bo.DoctorsBO;
 import com.capstone.healthcare.service.bo.PatientsBO;
+import com.capstone.healthcare.web.convert.DoctorsConvert;
 import com.capstone.healthcare.web.convert.PatientsConvert;
+import com.capstone.healthcare.web.dto.DoctorsDTO;
 import com.capstone.healthcare.web.dto.PatientsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -103,5 +105,20 @@ public class PatientsController {
 		}
 		return new ResultModel(list.get(0));
 	}
+
+	@RequestMapping("/getPatientId")
+	@ResponseBody
+	public ResultModel getDoctorId(@RequestBody PatientsQuery patientsQuery) {
+		List<PatientsDTO> patientsDTOList = PatientsConvert.toDTOList(patientsService.findList(patientsQuery));
+
+		Integer patientId = null;
+
+		if (!patientsDTOList.isEmpty()) {
+			patientId = patientsDTOList.get(0).getPatientId();
+		}
+
+		return new ResultModel(patientId);
+	}
+
 
 }

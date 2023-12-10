@@ -1,5 +1,6 @@
 package com.capstone.healthcare.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -18,9 +19,12 @@ public class AllergiesDTO {
 	/***/
 	private Integer patientId;
 	/***/
+	@JsonProperty("allergen_name")
 	private String allergenName;
-	/***/
+
+	@JsonProperty("allergy_type")
 	private String allergyType;
+
 	/***/
 	private String severity;
 	/***/

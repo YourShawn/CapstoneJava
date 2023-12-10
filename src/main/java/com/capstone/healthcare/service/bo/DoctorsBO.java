@@ -23,4 +23,6 @@ public class DoctorsBO {
 	private String address;
 	/***/
 	private String phoneNumber;
+	/***/
+	private int userId;
 }

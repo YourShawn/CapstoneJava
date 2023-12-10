@@ -23,4 +23,6 @@ public class DoctorsDTO {
 	private String address;
 	/***/
 	private String phoneNumber;
+	/***/
+	private int userId;
 }

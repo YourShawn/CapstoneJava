@@ -30,4 +30,7 @@ public class DoctorsDO {
 	private String address;
 	/***/
 	private String phoneNumber;
+	/***/
+	private int userId;
+
 }

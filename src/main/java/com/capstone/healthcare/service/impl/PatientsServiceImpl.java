@@ -36,7 +36,6 @@ public class PatientsServiceImpl implements PatientsService {
 
     @Override
     public void add(PatientsBO patientsBO){
-
         PatientsDO patientsDO = PatientsConvert.toDO(patientsBO);
 		patientsJPA.save(patientsDO);
     }
@@ -92,6 +91,22 @@ public class PatientsServiceImpl implements PatientsService {
         if (!ObjectUtils.isEmpty(query.getPatientId())) {
             probe.setPatientId(query.getPatientId());
         }
+        if (!ObjectUtils.isEmpty(query.getAssignedDoctor())) {
+            probe.setAssignedDoctor(Integer.parseInt(query.getAssignedDoctor()));
+        }
+        if (!ObjectUtils.isEmpty(query.getFirstName())) {
+            probe.setFirstName(query.getFirstName());
+        }
+        if (!ObjectUtils.isEmpty(query.getLastName())) {
+            probe.setLastName(query.getLastName());
+        }
+        if (!ObjectUtils.isEmpty(query.getDateOfBirth())) {
+            probe.setDateOfBirth(query.getDateOfBirth());
+        }
+        if (!ObjectUtils.isEmpty(query.getHealthCardId())) {
+            probe.setHealthCardId(query.getHealthCardId());
+        }
+
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
                 .withIgnoreCase();
