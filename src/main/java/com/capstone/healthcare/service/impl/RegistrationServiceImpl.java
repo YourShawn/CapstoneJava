@@ -36,6 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         usersJPA.updateSelective(usersDO);
     }
 
+
     @Override
     public List<UsersBO> findList(UsersQuery query){
         List<UsersDO> listByQuery = usersJPA.findAll(this.convertExampleJPA(query));

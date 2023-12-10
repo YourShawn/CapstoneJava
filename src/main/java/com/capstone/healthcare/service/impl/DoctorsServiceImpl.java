@@ -36,6 +36,7 @@ public class DoctorsServiceImpl implements DoctorsService {
         doctorsJPA.save(doctorsDO);
     }
 
+
     @Override
     public void update(DoctorsBO doctorsBO){
 		DoctorsDO doctorsDO = DoctorsConvert.toDO(doctorsBO);
@@ -66,6 +67,9 @@ public class DoctorsServiceImpl implements DoctorsService {
         DoctorsDO probe = new DoctorsDO();
         if(!ObjectUtils.isEmpty(query.getDoctorId())){
             probe.setDoctorId(query.getDoctorId());
+        }
+        if(!ObjectUtils.isEmpty(query.getUserId())){
+            probe.setUserId(query.getUserId());
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()

@@ -39,6 +39,7 @@ public class AllergiesServiceImpl implements AllergiesService {
 		 allergiesJPA.save(allergiesDO);
     }
 
+
     @Override
     public void update(AllergiesBO allergiesBO){
 		AllergiesDO allergiesDO = AllergiesConvert.toDO(allergiesBO);
