@@ -5,6 +5,7 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
+import com.capstone.healthcare.service.bo.AppointmentsUpcomingBO;
 
 import java.util.List;
 /**
@@ -41,4 +42,6 @@ public interface AppointmentsService {
 
 
     List<AppointmentsByDayBO> findGroupDays();
+
+    List<AppointmentsUpcomingBO> getUpcomingAppointments(AppointmentsQuery appointmentsQuery);
 }

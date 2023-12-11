@@ -3,18 +3,25 @@ package com.capstone.healthcare.web.controller;
 import com.capstone.healthcare.common.ResultModel;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.handle.DoctorsHandler;
+import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.query.DoctorsQuery;
+import com.capstone.healthcare.query.PatientsQuery;
 import com.capstone.healthcare.query.UsersQuery;
+import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.DoctorsBO;
+import com.capstone.healthcare.service.bo.PatientsBO;
+import com.capstone.healthcare.web.convert.AppointmentsConvert;
 import com.capstone.healthcare.web.convert.DoctorsConvert;
+import com.capstone.healthcare.web.convert.PatientsConvert;
 import com.capstone.healthcare.web.convert.RegisterConvert;
-import com.capstone.healthcare.web.dto.DoctorsDTO;
-import com.capstone.healthcare.web.dto.UsersDTO;
+import com.capstone.healthcare.web.dto.*;
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,6 +102,26 @@ public class DoctorsController {
 		}
 
 		return new ResultModel(doctorId);
+	}
+
+	@RequestMapping("/getDoctorName")
+	@ResponseBody
+	public ResultModel getDoctorName(@RequestBody DoctorsQuery doctorsQuery) {
+		List<DoctorsDTO> doctorsDTOList = DoctorsConvert.toDTOList(doctorsHandler.findList(doctorsQuery));
+		String doctorName = null;
+
+		if (!doctorsDTOList.isEmpty()) {
+			doctorName = doctorsDTOList.get(0).getDoctorName();
+		}
+
+		return new ResultModel(doctorName);
+	}
+
+	@GetMapping("/getDoctorsList")
+	@ResponseBody
+	public ResultModel getDoctorsList() {
+		List<DoctorsListDTO> doctorsDTOList = doctorsHandler.findList();
+		return new ResultModel(doctorsDTOList);
 	}
 
 

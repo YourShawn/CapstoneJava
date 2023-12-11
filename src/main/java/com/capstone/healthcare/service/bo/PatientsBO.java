@@ -41,5 +41,7 @@ public class PatientsBO {
 	private String patientHistory;
 	/***/
 	private String maritalStatus;
+	/***/
+	private String userId;
 
 }

@@ -47,4 +47,6 @@ public class PatientsQuery extends PageInfo{
 	private String patientHistory;
 	/***/
 	private String maritalStatus;
+	/***/
+	private String userId;
 }

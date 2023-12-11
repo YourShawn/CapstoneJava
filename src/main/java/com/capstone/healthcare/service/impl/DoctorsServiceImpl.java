@@ -3,6 +3,7 @@ package com.capstone.healthcare.service.impl;
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.dal.dataobject.DoctorsDO;
 import com.capstone.healthcare.dal.jpa.DoctorsJPA;
+import com.capstone.healthcare.dal.jpa.DoctorsJPA2;
 import com.capstone.healthcare.query.DoctorsQuery;
 import com.capstone.healthcare.service.DoctorsService;
 import com.capstone.healthcare.service.bo.DoctorsBO;
@@ -26,6 +27,9 @@ public class DoctorsServiceImpl implements DoctorsService {
 
 	@Autowired
 	private DoctorsJPA doctorsJPA;
+
+    @Autowired
+    private DoctorsJPA2 doctorsJPA2;
 
 
 
@@ -80,5 +84,10 @@ public class DoctorsServiceImpl implements DoctorsService {
         return example;
     }
 
+    @Override
+    public List<Object[]> findList(){
+        List<Object[]> listByQuery = doctorsJPA2.getDoctorsList();
+        return listByQuery;
+    }
 
 }

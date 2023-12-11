@@ -32,5 +32,9 @@ public interface AppointmentsJPA2 extends CrudRepository<AppointmentsDO,Integer>
             "WHERE a.doctor_id = :doctorId AND a.is_active = :isActive", nativeQuery = true)
     List<Object[]> getAppointmentsList(@Param("doctorId") int doctorId, @Param("isActive") int isActive);
 
+    @Query(value = "select d.doctor_name, DATE_FORMAT(a.appointment_date_time, '%Y-%m-%d, %h:%i %p') as appointment_date from appointments a " +
+            "inner join doctors d on d.doctor_id = a.doctor_id " +
+            "where patient_id = :patientId and status = 'Scheduled'", nativeQuery = true)
+    List<Object[]> getUpcomingAppointments(@Param("patientId") int patientId);
 
 }

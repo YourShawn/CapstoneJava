@@ -10,7 +10,9 @@ import com.capstone.healthcare.service.AppointmentsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
 import com.capstone.healthcare.service.bo.AppointmentsByDayBO;
 import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
+import com.capstone.healthcare.service.bo.AppointmentsUpcomingBO;
 import com.capstone.healthcare.service.convert.AppointmentsConvert;
+import com.capstone.healthcare.web.dto.DoctorsListDTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -141,7 +143,7 @@ public class AppointmentsServiceImpl implements AppointmentsService {
         return list;
     }
 
-    private org.springframework.data.domain.Example<AppointmentsDO> convertExampleJPA(AppointmentsQuery query) {
+        private org.springframework.data.domain.Example<AppointmentsDO> convertExampleJPA(AppointmentsQuery query) {
         AppointmentsDO probe = new AppointmentsDO();
         if(!ObjectUtils.isEmpty(query.getAppointmentId())){
             probe.setAppointmentId(query.getAppointmentId());
@@ -151,6 +153,11 @@ public class AppointmentsServiceImpl implements AppointmentsService {
             probe.setDoctorId(query.getDoctorId());
         }
 
+        if(!ObjectUtils.isEmpty(query.getPatientId())){
+            probe.setPatientId(query.getPatientId());
+        }
+
+
         probe.setIsActive(1);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -159,6 +166,23 @@ public class AppointmentsServiceImpl implements AppointmentsService {
 
         Example<AppointmentsDO> example = Example.of(probe, matcher);
         return example;
+    }
+
+    @Override
+    public List<AppointmentsUpcomingBO> getUpcomingAppointments(AppointmentsQuery appointmentsQuery) {
+        List<Object[]> listByQuery = appointmentsJPA2.getUpcomingAppointments(appointmentsQuery.getPatientId());
+        ArrayList<AppointmentsUpcomingBO> list = Lists.newArrayList();
+        if (CollectionUtils.isEmpty(listByQuery)) {
+            return list; // Return an empty list if listByQuery is empty
+        }
+        for (Object[] objArray : listByQuery) {
+            AppointmentsUpcomingBO appointmentsUpcomingBO = new AppointmentsUpcomingBO(
+                    (String) objArray[0],
+                    (String) objArray[1]
+            );
+            list.add(appointmentsUpcomingBO);
+        }
+        return list;
     }
 
 

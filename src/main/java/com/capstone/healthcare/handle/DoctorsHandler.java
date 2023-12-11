@@ -5,10 +5,16 @@ import com.capstone.healthcare.query.AppointmentsQuery;
 import com.capstone.healthcare.query.DoctorsQuery;
 import com.capstone.healthcare.service.DoctorsService;
 import com.capstone.healthcare.service.bo.AppointmentsBO;
+import com.capstone.healthcare.service.bo.AppointmentsByPatientNameBO;
 import com.capstone.healthcare.service.bo.DoctorsBO;
+import com.capstone.healthcare.web.dto.DoctorsListDTO;
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,5 +55,22 @@ public class DoctorsHandler{
         PageListResult<DoctorsBO> page = doctorsService.findPage(query);
         return page.getTotal();
     }
+
+    public List<DoctorsListDTO> findList() {
+        List<Object[]> listByQuery = doctorsService.findList();
+        ArrayList<DoctorsListDTO> list = Lists.newArrayList();
+        if (CollectionUtils.isEmpty(listByQuery)) {
+            return list; // Return an empty list if listByQuery is empty
+        }
+        for (Object[] objArray : listByQuery) {
+            DoctorsListDTO doctorsListDTO = new DoctorsListDTO(
+                    (Integer) objArray[0],
+                    (String) objArray[1]
+            );
+            list.add(doctorsListDTO);
+        }
+        return list;
+    }
+
 
 }

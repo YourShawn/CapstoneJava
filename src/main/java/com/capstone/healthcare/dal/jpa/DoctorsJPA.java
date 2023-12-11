@@ -4,6 +4,9 @@ import com.capstone.healthcare.dal.dataobject.DoctorsDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 /**
  * 
  * 
@@ -13,4 +16,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DoctorsJPA extends JpaRepository<DoctorsDO,Integer>, QueryByExampleExecutor<DoctorsDO> {
+
+    // Find all doctors
+    List<DoctorsDO> findAll();
+
 }
