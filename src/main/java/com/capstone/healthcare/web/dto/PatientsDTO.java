@@ -41,4 +41,6 @@ public class PatientsDTO {
 	private String patientHistory;
 	/***/
 	private String maritalStatus;
+	/***/
+	private String userId;
 }

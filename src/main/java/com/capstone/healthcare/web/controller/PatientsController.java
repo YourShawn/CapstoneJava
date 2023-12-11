@@ -108,7 +108,7 @@ public class PatientsController {
 
 	@RequestMapping("/getPatientId")
 	@ResponseBody
-	public ResultModel getDoctorId(@RequestBody PatientsQuery patientsQuery) {
+	public ResultModel getPatientId(@RequestBody PatientsQuery patientsQuery) {
 		List<PatientsDTO> patientsDTOList = PatientsConvert.toDTOList(patientsService.findList(patientsQuery));
 
 		Integer patientId = null;

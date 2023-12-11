@@ -71,19 +71,6 @@ public class PatientsServiceImpl implements PatientsService {
         return PatientsConvert.toBOList(byPatientIds);
     }
 
-    /**
-        *
-        * @param patientsQuery
-        * @return
-        */
-//    private Example convertExample(PatientsQuery patientsQuery) {
-//        Example example = new Example(PatientsDO.class);
-//        Example.Criteria criteria = example.createCriteria();
-//        if (!ObjectUtils.isEmpty(patientsQuery.getPatientId())) {
-//            criteria.andEqualTo("patientId", patientsQuery.getPatientId());
-//        }
-//        return example;
-//    }
 
 
     private Example<PatientsDO> convertExampleJPA(PatientsQuery query) {
@@ -105,6 +92,10 @@ public class PatientsServiceImpl implements PatientsService {
         }
         if (!ObjectUtils.isEmpty(query.getHealthCardId())) {
             probe.setHealthCardId(query.getHealthCardId());
+        }
+
+        if (!ObjectUtils.isEmpty(query.getUserId())) {
+            probe.setUserId(query.getUserId());
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()

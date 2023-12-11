@@ -49,6 +49,8 @@ public class PatientsDO {
 	private String patientHistory;
 	/***/
 	private String maritalStatus;
+	/***/
+	private String userId;
 
 
 	@Transient

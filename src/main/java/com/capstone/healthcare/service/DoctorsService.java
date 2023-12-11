@@ -35,4 +35,6 @@ public interface DoctorsService {
     List<DoctorsBO> findList(DoctorsQuery query);
 
     PageListResult<DoctorsBO> findPage(DoctorsQuery query);
+
+    public List<Object[]> findList();
 }
