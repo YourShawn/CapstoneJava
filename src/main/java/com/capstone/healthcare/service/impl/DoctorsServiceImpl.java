@@ -86,7 +86,7 @@ public class DoctorsServiceImpl implements DoctorsService {
 
     @Override
     public List<Object[]> findList(){
-        
+
         List<Object[]> listByQuery = doctorsJPA2.getDoctorsList();
         return listByQuery;
     }
