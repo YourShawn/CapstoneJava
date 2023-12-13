@@ -87,6 +87,15 @@ public class PrescriptionsServiceImpl implements PrescriptionsService {
     }
 
     @Override
+    public String findToday() {
+        List<Object[]> objects = prescriptionsJPA2.findToday();
+        if(CollectionUtils.isEmpty(objects)){
+            return "0";
+        }
+        return objects.get(0)[0].toString();
+    }
+
+    @Override
     public List<PrescriptionBODetail> getPrescriptionDetail(PrescriptionsQuery prescriptionsQuery) {
         ArrayList<PrescriptionBODetail> list = Lists.newArrayList();
         List<Object[]> prescriptionLst = prescriptionsJPA2.getPrescriptionDetail

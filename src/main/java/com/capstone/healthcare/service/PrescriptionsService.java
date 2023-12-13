@@ -41,6 +41,7 @@ public interface PrescriptionsService {
 
 
     List<PrescriptionsByYearBO> findGroupYear();
+    String findToday();
 
     List<PrescriptionBODetail> getPrescriptionDetail(PrescriptionsQuery prescriptionsQuery);
 }

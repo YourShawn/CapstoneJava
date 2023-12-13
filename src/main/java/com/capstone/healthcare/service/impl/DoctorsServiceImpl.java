@@ -75,6 +75,9 @@ public class DoctorsServiceImpl implements DoctorsService {
         if(!ObjectUtils.isEmpty(query.getUserId())){
             probe.setUserId(query.getUserId());
         }
+        if(!ObjectUtils.isEmpty(query.getDoctorName())){
+            probe.setDoctorName(query.getDoctorName());
+        }
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)

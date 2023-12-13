@@ -87,6 +87,9 @@ public class PatientsServiceImpl implements PatientsService {
         if (!ObjectUtils.isEmpty(query.getLastName())) {
             probe.setLastName(query.getLastName());
         }
+        if (!ObjectUtils.isEmpty(query.getPhoneNumber())) {
+            probe.setPhoneNumber(query.getPhoneNumber());
+        }
         if (!ObjectUtils.isEmpty(query.getDateOfBirth())) {
             probe.setDateOfBirth(query.getDateOfBirth());
         }

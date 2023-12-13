@@ -2,9 +2,11 @@ package com.capstone.healthcare.handle;
 
 import com.capstone.healthcare.common.modules.PageListResult;
 import com.capstone.healthcare.query.PatientsQuery;
+import com.capstone.healthcare.query.PrescriptionsQuery;
 import com.capstone.healthcare.service.PatientsService;
 import com.capstone.healthcare.service.PrescriptionsService;
 import com.capstone.healthcare.service.bo.PatientsBO;
+import com.capstone.healthcare.service.bo.PrescriptionsBO;
 import com.capstone.healthcare.service.bo.PrescriptionsByYearBO;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
@@ -32,6 +34,9 @@ public class PrescriptionHandler {
 
     public List<PrescriptionsByYearBO> findGroupYear(){
         return prescriptionsService.findGroupYear();
+    }
+    public String findToday(){
+        return prescriptionsService.findToday();
     }
 
 

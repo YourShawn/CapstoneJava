@@ -60,6 +60,16 @@ public class PrescriptionsController {
 		return new ResultModel(pagerResult);
 	}
 
+	/**
+	 * findGroupYear
+	 */
+	@GetMapping("/findToday")
+	public ResultModel findToday(){
+		String today = prescriptionHandler.findToday();
+		return new ResultModel(today);
+	}
+
+
 
 	/**
 	 * Adding new data

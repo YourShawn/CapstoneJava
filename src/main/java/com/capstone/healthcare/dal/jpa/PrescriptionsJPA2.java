@@ -23,6 +23,10 @@ public interface PrescriptionsJPA2 extends CrudRepository<PrescriptionsDO,Intege
                 " FROM prescriptions" +
                 " GROUP BY YEAR(prescription_date) order by year;", nativeQuery = true)
         List<Object[]> groupByYear();
+        @Query(value = "SELECT count(0)\n" +
+                "FROM prescriptions\n" +
+                "WHERE DATE(prescription_date) = CURRENT_DATE;", nativeQuery = true)
+        List<Object[]> findToday();
         public List<PrescriptionsDO> findAllByOrderByPrescriptionId();
 
         @Query(value = "SELECT p.prescription_id, p.notes, p.prescription_date, " +
